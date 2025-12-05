@@ -1,0 +1,32 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔍 Running Pre-Commit Checks..."
+
+# Get staged files
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM)
+
+# 1️⃣ Block any JS/JSX files
+JS_FILES=""
+for file in $STAGED_FILES; do
+  case "$file" in
+    *.js|*.jsx)
+      JS_FILES="$JS_FILES$file"$'\n'
+      ;;
+  esac
+done
+
+if [ -n "$JS_FILES" ]; then
+  echo "❌ JS/JSX files detected in commit:"
+  echo "$JS_FILES"
+  echo "❌ Convert them to TypeScript (.ts/.tsx) before committing."
+  exit 1
+fi
+
+# 2️⃣ Run lint-staged (TS only)
+yarn lint-staged
+
+# 3️⃣ Optional TypeScript type check
+yarn tsc --noEmit
+
+echo "✅ Pre-commit checks passed!"

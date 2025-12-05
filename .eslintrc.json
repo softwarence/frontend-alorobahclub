@@ -1,0 +1,33 @@
+{
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "prettier"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "error"
+      }
+    }
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      { "singleQuote": false, "semi": true, "trailingComma": "all", "printWidth": 100 }
+    ],
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "Program[sourceType='script']",
+        "message": "JavaScript (.js/.jsx) files are not allowed. Use TypeScript (.ts/.tsx) instead."
+      }
+    ]
+  }
+}

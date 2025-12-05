@@ -1,0 +1,8 @@
+*.js
+*.jsx
+node_modules
+.next
+dist
+build
+.vscode
+.env
