@@ -8,6 +8,19 @@ body {
   padding: 0;
 }
 
+.cut-corner {
+  clip-path: polygon(
+    18px 0%,
+    /* top-left */ calc(100% - 18px) 0%,
+    /* top-right */ 100% 18px,
+    100% calc(100% - 18px),
+    /* bottom-right */ calc(100% - 18px) 100%,
+    18px 100%,
+    /* bottom-left */ 0% calc(100% - 18px),
+    0% 18px
+  );
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
