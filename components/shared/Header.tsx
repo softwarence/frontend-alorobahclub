@@ -33,14 +33,14 @@ export default function Header() {
   return (
     <header
       className="
-    fixed top-0 left-0 w-full z-50
-    bg-gradient-to-b
-    from-black/95
-    via-black/60
-    to-transparent
+      absolute top-0 left-0 w-full z-50
+      bg-gradient-to-b
+      from-black/95
+      via-black/60
+      to-transparent
     "
     >
-      <div className="border-t-7 border-[#0091B6] flex justify-end px-12 py-2">
+      <div className="border-t-7 border-[#0091B6] flex justify-end xl:px-12 px-5 py-2">
         <ToggleGroup
           type="single"
           value={lang}
@@ -88,7 +88,7 @@ export default function Header() {
       </div>
 
       {/* ---------- */}
-      <div className="mx-auto flex items-center justify-between px-12 py-3 border-t border-[#0091B6]/30">
+      <div className="mx-auto flex items-center justify-between xl:px-12 px-5 py-3 border-t border-[#0091B6]/30">
         {/* LEFT: LOGO */}
         <Link href="/" className="flex items-center gap-2">
           <Image
@@ -103,7 +103,7 @@ export default function Header() {
         {/* MIDDLE: NAVIGATION (Desktop) */}
         <nav className="hidden md:block">
           <NavigationMenu>
-            <NavigationMenuList className="flex gap-10">
+            <NavigationMenuList className="flex gap-5 xl:gap-10">
               {navItems.map((item) => {
                 const active = pathname === item.href;
                 return (

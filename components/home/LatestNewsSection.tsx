@@ -1,163 +1,167 @@
 "use client";
 
 import Image, { StaticImageData } from "next/image";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useState } from "react";
+import Flicking, { FlickingEvents } from "@egjs/react-flicking";
+import "@egjs/react-flicking/dist/flicking.css";
+
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+
 import img1 from "@/public/test-image/test1.jpg";
 import img2 from "@/public/test-image/test2.jpg";
 import img3 from "@/public/test-image/test3.jpg";
 
-// -----------------------------
-// Types
-// -----------------------------
 interface Slide {
   img: StaticImageData;
   title: string;
   desc: string;
 }
 
-// -----------------------------
-// Card Component
-// -----------------------------
 const ChamferCard = ({ img, title, desc }: Slide) => (
-  <div className="relative w-full rounded-xl overflow-hidden shadow-xl group cut-corner">
-    {/* Image with scale on hover */}
+  <div className="cut-corner relative w-[385px] rounded-xl overflow-hidden shadow-xl group">
     <div className="overflow-hidden">
       <Image
         src={img}
         alt={title}
-        className="w-full h-[480px] object-cover transform transition-transform duration-500 group-hover:scale-105"
+        className="w-full h-[600px] object-cover transform transition-transform duration-500 group-hover:scale-105"
+        draggable={false}
       />
     </div>
-
-    {/* Overlay */}
-    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
-
-    {/* Text content at bottom center */}
-    <div className="absolute bottom-8 pl-2 left-1/2 -translate-x-1/2 w-[90%] text- text-white z-10">
-      <h3 className="text-lg md:text-xl font-bold line-clamp-2">{title}</h3>
-      <p className="mt-2 inline-block text-[#FFE000] font-medium text-sm md:text-base border-b-2 pb-1 border-[#FFE000] cursor-pointer">
+    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
+    <div className="absolute bottom-8 left-8 right-8 text-white z-10">
+      <h3 className="text-xl font-bold line-clamp-2">{title}</h3>
+      <Button
+        variant="link"
+        className="mt-4 border-b-2 border-[#FFE000] p-0 text-sm font-medium text-[#FFE000] hover:bg-transparent rounded-none hover:no-underline"
+      >
         READ MORE
-      </p>
+      </Button>
     </div>
   </div>
 );
 
-// -----------------------------
-// Latest News Carousel
-// -----------------------------
 export default function LatestNewsSection() {
   const slides: Slide[] = [
-    {
-      img: img1,
-      title: "Placeholder title for carousel banner",
-      desc: "Lorem ipsum dolor sit amet",
-    },
-    {
-      img: img2,
-      title: "Late goal seals victory in tense encounter",
-      desc: "Lorem ipsum dolor sit amet",
-    },
-    {
-      img: img3,
-      title: "25/26 Third Kit: The strength of AL-Ittihad",
-      desc: "Lorem ipsum dolor sit amet",
-    },
-    {
-      img: img1,
-      title: "Upcoming Friendly Match Announcement",
-      desc: "Lorem ipsum dolor sit amet",
-    },
-    {
-      img: img2,
-      title: "Player of the Month: Highlights & Awards",
-      desc: "Lorem ipsum dolor sit amet",
-    },
+    { img: img1, title: "AL-ITTIHAD ANNOUNCES SPONSORSHIP DEAL WITH TCL", desc: "Lorem ipsum" },
+    { img: img2, title: "ORAL HEALTH PROGRAM LAUNCHED FOR YOUTH PLAYERS", desc: "Lorem ipsum" },
+    { img: img3, title: "TIGER MEMBERS ATTEND FIRST-TEAM OPEN TRAINING", desc: "Lorem ipsum" },
+    { img: img1, title: "AL-ITTIHAD LAUNCHES FOOTBALL SCHOOL AT AGS JEDDAH", desc: "Lorem ipsum" },
+    { img: img2, title: "Upcoming Friendly Match Announcement", desc: "Lorem ipsum" },
+    { img: img3, title: "Friendly Match Details Released", desc: "Lorem ipsum" },
   ];
 
-  const ITEMS_PER_VIEW = 3;
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const ITEMS_PER_VIEW = 3; // number of slides visible at once
+  const totalSlides = slides.length;
 
-  // Scroll to specific slide
-  const scrollToIndex = (index: number) => {
-    const container = carouselRef.current;
-    if (!container) return;
-    const card = container.children[0] as HTMLElement;
-    container.scrollTo({
-      left: index * (card.offsetWidth + 16),
-      behavior: "smooth",
+  const flickingRef = useRef<Flicking>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [isFlickingReady, setIsFlickingReady] = useState(false);
+
+  // update yellow bar based on visible slides
+  const updateProgress = (index: number) => {
+    const visibleSlides = Math.min(ITEMS_PER_VIEW, totalSlides - index);
+    const progressPercent = ((index + visibleSlides) / totalSlides) * 100;
+    setProgress(progressPercent);
+  };
+
+  const handleReady = (e: FlickingEvents["ready"]) => {
+    setIsFlickingReady(true);
+    requestAnimationFrame(() => {
+      const index = flickingRef.current?.index ?? 0;
+      setCurrentIndex(index);
+      updateProgress(index);
     });
   };
 
-  useEffect(() => scrollToIndex(currentIndex), [currentIndex]);
+  const handleChanged = (e: FlickingEvents["changed"]) => {
+    const index = e.index ?? 0;
+    setCurrentIndex(index);
+    updateProgress(index);
+  };
 
-  const prevSlide = () => setCurrentIndex((prev) => Math.max(prev - 1, 0));
-  const nextSlide = () =>
-    setCurrentIndex((prev) => Math.min(prev + 1, slides.length - ITEMS_PER_VIEW));
+  const movePrev = () => {
+    const flicking = flickingRef.current;
+    if (!flicking || flicking.animating || currentIndex <= 0) return;
+    flicking.prev();
+  };
 
-  const progressWidth = ((currentIndex + ITEMS_PER_VIEW) / slides.length) * 100;
+  const moveNext = () => {
+    const flicking = flickingRef.current;
+    if (!flicking || flicking.animating || currentIndex >= totalSlides - ITEMS_PER_VIEW) return;
+    flicking.next();
+  };
 
   return (
-    <section className="w-full py-12 px-6 bg-[#0A0E15] text-white">
-      <div className="flex flex-col md:flex-row gap-10 mx-auto items-start md:items-stretch">
-        {/* Left Panel */}
-        <div className="md:w-5/12 flex flex-col justify-between">
+    <section className="w-full py-20 bg-black text-white">
+      <div className="flex flex-col lg:flex-row gap-10">
+        {/* LEFT PANEL */}
+        <div className="w-full lg:w-[35%] flex flex-col justify-between pt-10 pl-6">
           <div></div>
           <div>
-            <h2 className="text-4xl font-bold mb-4">AL-OROBAH LATEST</h2>
-            <Button className="bg-[#FFE000] text-black hover:bg-yellow-500 mb-6 w-fit">
+            <h2 className="text-5xl font-extrabold leading-tight">AL-ITTIHAD LATEST</h2>
+            <Button
+              variant="default"
+              className="cut-corner-btn mt-5 w-fit rounded-none px-6 py-6 text-black bg-[#FFE000] hover:bg-yellow-500 font-bold text-sm"
+            >
               VIEW ALL NEWS
             </Button>
           </div>
-          <div className="flex gap-4">
+
+          <div className="flex gap-4 mt-10">
             <Button
-              onClick={prevSlide}
-              disabled={currentIndex === 0}
-              className={`w-10 h-10 border border-gray-600 ${
-                currentIndex === 0
-                  ? "opacity-50 cursor-not-allowed border-gray-800"
-                  : "hover:border-[#FFE000]"
-              }`}
+              variant="link"
+              size="icon"
+              onClick={movePrev}
+              disabled={currentIndex <= 0 || !isFlickingReady}
+              className="text-5xl text-[#FFE000] disabled:opacity-30 p-0 hover:no-underline"
             >
-              &#8592;
+              ←
             </Button>
+
             <Button
-              onClick={nextSlide}
-              disabled={currentIndex >= slides.length - ITEMS_PER_VIEW}
-              className={`w-10 h-10 border border-gray-600 ${
-                currentIndex >= slides.length - ITEMS_PER_VIEW
-                  ? "opacity-50 cursor-not-allowed border-gray-800"
-                  : "hover:border-[#FFE000]"
-              }`}
+              variant="link"
+              size="icon"
+              onClick={moveNext}
+              disabled={currentIndex >= totalSlides - ITEMS_PER_VIEW || !isFlickingReady}
+              className="text-5xl text-[#FFE000] disabled:opacity-30 p-0 hover:no-underline"
             >
-              &#8594;
+              →
             </Button>
           </div>
         </div>
 
-        {/* Right Panel */}
-        <div className="md:w-9/12 space-y-5">
-          <div
-            ref={carouselRef}
-            className="flex gap-4 overflow-x-auto scroll-smooth [&::-webkit-scrollbar]:hidden -ms-overflow-style-none scrollbar-none"
+        {/* RIGHT SLIDER */}
+        <div className="w-full lg:w-[65%] pr-6">
+          <Flicking
+            ref={flickingRef}
+            align="prev"
+            circular={false}
+            bound={true}
+            moveType="snap"
+            panelsPerView={ITEMS_PER_VIEW}
+            gap={24}
+            className="w-full flex"
+            preventClickOnDrag
+            onReady={handleReady}
+            onChanged={handleChanged}
           >
-            {slides.map((slide, idx) => (
-              <div key={idx} className="flex-shrink-0 md:basis-1/3">
+            {slides.map((slide, i) => (
+              <div
+                key={i}
+                className={`flex-shrink-0 w-[calc((100% - ${(ITEMS_PER_VIEW - 1) * 24}px)/${ITEMS_PER_VIEW})] hover:cursor-pointer`}
+              >
                 <ChamferCard {...slide} />
               </div>
             ))}
-          </div>
+          </Flicking>
 
-          {/* Progress Bar */}
-          <div className="w-full px-2">
-            <div className="h-1 w-full bg-gray-800 rounded-full">
-              <div
-                className="h-1 bg-[#FFE000] rounded-full transition-all duration-300"
-                style={{ width: `${progressWidth}%` }}
-              />
-            </div>
-          </div>
+          <Progress
+            bgColor="bg-yellow-400"
+            value={progress}
+            className="h-1 mt-6 rounded-full bg-gray-800 transition-all"
+          />
         </div>
       </div>
     </section>

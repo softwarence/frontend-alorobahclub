@@ -20,6 +20,18 @@ body {
     0% 18px
   );
 }
+.cut-corner-btn {
+  clip-path: polygon(
+    8px 0%,
+    /* top-left */ calc(100% - 8px) 0%,
+    /* top-right */ 100% 8px,
+    100% calc(100% - 8px),
+    /* bottom-right */ calc(100% - 8px) 100%,
+    8px 100%,
+    /* bottom-left */ 0% calc(100% - 8px),
+    0% 8px
+  );
+}
 
 @custom-variant dark (&:is(.dark *));
 
