@@ -4,11 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Button } from "@/components/ui/button";
 
-import img1 from "@/public/test-image/test1.jpg";
-import img2 from "@/public/test-image/test2.jpg";
-import img3 from "@/public/test-image/test3.jpg";
+import img1 from "@/public/test-image/t1.jpg";
+import img2 from "@/public/test-image/t4.jpg";
+import img3 from "@/public/test-image/t3.jpg";
 
 const slides = [
   {
@@ -72,6 +71,9 @@ export default function HeroBanner() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-black">
+      {/* Bottom-Left Light Gradient Overlay */}
+      <div className="pointer-events-none absolute inset-0 z-1 bg-gradient-to-tr from-black/40 via-black/10 to-transparent" />
+
       {/* Slide Image */}
       <div className="relative h-full w-full">
         <Image
@@ -82,11 +84,13 @@ export default function HeroBanner() {
         />
 
         {/* Text overlay */}
-        <div className="absolute bottom-23 left-12 max-w-2xl space-y-3 drop-shadow-xl">
+        <div className="absolute bottom-23 left-12 xl:max-w-2xl max-w-md space-y-3 drop-shadow-xl z-10">
           <Card className="bg-transparent border-0 p-0">
             <CardContent className="p-0">
               <p className="text-white/60 opacity-90">{slides[index].desc}</p>
-              <h2 className="text-7xl font-bold text-white">{slides[index].subtitle}</h2>
+              <h2 className="xl:text-7xl text-5xl font-bold text-white">
+                {slides[index].subtitle}
+              </h2>
             </CardContent>
           </Card>
         </div>
@@ -97,7 +101,7 @@ export default function HeroBanner() {
         {slides.map((slide, i) => (
           <div
             key={i}
-            className="cursor-pointer flex flex-col items-start max-w-[165px]"
+            className="cursor-pointer flex flex-col items-start max-w-[145px] xl:max-w-[165px]"
             onClick={() => goTo(i)}
           >
             {/* Progress bar with width same as text */}

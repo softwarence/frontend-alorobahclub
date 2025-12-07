@@ -19,6 +19,32 @@ body {
     /* bottom-left */ 0% calc(100% - 18px),
     0% 18px
   );
+} /* Cut corner button */
+.cut-corner-btn {
+  clip-path: polygon(
+    6px 0%,
+    calc(100% - 6px) 0%,
+    100% 6px,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    6px 100%,
+    0% calc(100% - 6px),
+    0% 6px
+  );
+}
+
+/* Hover effect: slightly smaller corners */
+.cut-corner-btn:hover {
+  clip-path: polygon(
+    5px 0%,
+    calc(100% - 5px) 0%,
+    100% 5px,
+    100% calc(100% - 5px),
+    calc(100% - 5px) 100%,
+    5px 100%,
+    0% calc(100% - 5px),
+    0% 5px
+  );
 }
 
 @custom-variant dark (&:is(.dark *));
