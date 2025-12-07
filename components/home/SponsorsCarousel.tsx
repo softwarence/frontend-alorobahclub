@@ -90,16 +90,16 @@ export default function SponsorsCarousel() {
           <Button
             variant="link"
             onClick={() => api?.scrollPrev()}
-            className="hidden md:block absolute right-3 top-1/2 -translate-y-1/2 z-30 p-0 bg-transparent hover:opacity-80"
+            className="hidden md:block absolute left-3 top-1/2 -translate-y-1/2 z-30 p-0 bg-transparent hover:opacity-80"
           >
-            <Image src={leftArrow} width={44} height={44} alt="Prev" />
+            <Image src={rightArrow} width={44} height={44} alt="Next" />
           </Button>
           <Button
             variant="link"
             onClick={() => api?.scrollNext()}
-            className="hidden md:block absolute left-3 top-1/2 -translate-y-1/2 z-30 p-0 bg-transparent hover:opacity-80"
+            className="hidden md:block absolute right-3 top-1/2 -translate-y-1/2 z-30 p-0 bg-transparent hover:opacity-80"
           >
-            <Image src={rightArrow} width={44} height={44} alt="Next" />
+            <Image src={leftArrow} width={44} height={44} alt="Prev" />
           </Button>
         </div>
       </div>

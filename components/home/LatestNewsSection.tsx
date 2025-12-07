@@ -106,7 +106,7 @@ export default function LatestNewsSection() {
             </Button>
           </div>
 
-          <div className="flex gap-4 mt-10">
+          <div className="flex gap-4 mt-10 -mb-3.5">
             <Button
               variant="link"
               size="icon"

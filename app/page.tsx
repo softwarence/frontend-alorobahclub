@@ -13,6 +13,7 @@ import MemberShipBanner from "@/components/home/MemberShipBanner";
 import SignUpFrom from "./../components/home/SignUpFrom";
 import SponsorsCarousel from "@/components/home/SponsorsCarousel";
 import Footer from "@/components/shared/Footer";
+import SignUpBanner from "./../components/home/SignUpBanner";
 
 export default function Home() {
   return (
@@ -22,11 +23,12 @@ export default function Home() {
         <HeroBanner></HeroBanner>
       </div>
       <LatestNewsSection></LatestNewsSection>
-      <div className="bg-[#0A0E15]">
+      {/* <div className="bg-[#0A0E15]">
         <Link href="#">
           <SignUpSection></SignUpSection>
         </Link>
-      </div>
+      </div> */}
+      <SignUpBanner></SignUpBanner>
       <MatchSchedule></MatchSchedule>
       <OfferSlider></OfferSlider>
       <ShopBanner></ShopBanner>

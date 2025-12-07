@@ -1,18 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import membershipImage from "@/public/assets/membership-banner/membership_img.svg";
-import yellow_bg from "@/public/assets/membership-banner/yellow_bg.svg";
+import Section_mask_group from "@/public/assets/Section_mask-group.svg";
 import { Button } from "../ui/button";
 
 const MemberShipBanner = () => {
   return (
     <section className="relative w-full bg-black pb-20">
-      <div className="relative w-full min-h-[400px] md:h-[600px] overflow-hidden">
+      <div className="relative w-full min-h-[400px] md:h-[800px] overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
           <Image
-            src={yellow_bg}
+            src={Section_mask_group}
             alt="Yellow background with wavy edge"
             fill
             className="object-cover object-top"
@@ -39,19 +38,6 @@ const MemberShipBanner = () => {
               >
                 SIGN UP
               </Button>
-            </div>
-
-            {/* RIGHT IMAGE (touches right edge) */}
-            <div className="relative flex items-end justify-end h-full pr-4 md:pr-12">
-              <div className="relative h-full w-full max-w-sm md:max-w-none">
-                <Image
-                  src={membershipImage}
-                  alt="Football player"
-                  fill
-                  className="object-cover object-top-right"
-                  priority
-                />
-              </div>
             </div>
           </div>
         </div>
