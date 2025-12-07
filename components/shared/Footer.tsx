@@ -34,7 +34,7 @@ const Footer = () => {
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/50 via-black/40 to-black/50 z-0" />
 
       {/* Logo & Download Section */}
-      <section className="md:px-4 md:py-12 pt-12 md:pt-0 flex flex-row items-center justify-center gap-1 md:gap-20 z-10 relative">
+      <section className="md:px-4 md:py-12 pt-12 flex flex-row items-center justify-center gap-1 md:gap-20 z-10 relative">
         {/* Logo */}
         <div className="relative w-32 h-25 flex-shrink-0">
           <Image

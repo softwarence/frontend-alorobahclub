@@ -5,7 +5,7 @@ import club_establishment from "@/public/assets/about/club-establishment.svg";
 
 const EstablishmentHistorySection = () => {
   return (
-    <section className="relative bg-black min-h-[650px]">
+    <section className="md:block hidden relative bg-black min-h-[650px]">
       {/* Decorative Top Border */}
       <div className="absolute -top-35 left-0 w-full">
         <Image src={club_establishment} alt="Decorative Top Border" className="w-full h-auto" />

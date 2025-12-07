@@ -4,6 +4,16 @@ import "./globals.css";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 
+export const metadata: Metadata = {
+  title: "Alorobah Club",
+  description: "Official website of Al-Orobah Club",
+  icons: {
+    icon: "/assets/logo_d.svg",
+    shortcut: "/assets/logo_d.svg",
+    apple: "/assets/logo_d.svg",
+  },
+};
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -13,11 +23,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-export const metadata: Metadata = {
-  title: "Alorobah Club",
-  description: "",
-};
 
 export default function RootLayout({
   children,
