@@ -19,17 +19,31 @@ body {
     /* bottom-left */ 0% calc(100% - 18px),
     0% 18px
   );
-}
+} /* Cut corner button */
 .cut-corner-btn {
   clip-path: polygon(
-    8px 0%,
-    /* top-left */ calc(100% - 8px) 0%,
-    /* top-right */ 100% 8px,
-    100% calc(100% - 8px),
-    /* bottom-right */ calc(100% - 8px) 100%,
-    8px 100%,
-    /* bottom-left */ 0% calc(100% - 8px),
-    0% 8px
+    6px 0%,
+    calc(100% - 6px) 0%,
+    100% 6px,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    6px 100%,
+    0% calc(100% - 6px),
+    0% 6px
+  );
+}
+
+/* Hover effect: slightly smaller corners */
+.cut-corner-btn:hover {
+  clip-path: polygon(
+    5px 0%,
+    calc(100% - 5px) 0%,
+    100% 5px,
+    100% calc(100% - 5px),
+    calc(100% - 5px) 100%,
+    5px 100%,
+    0% calc(100% - 5px),
+    0% 5px
   );
 }
 
@@ -73,6 +87,14 @@ body {
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+}
+
+.hero {
+  width: 100%;
+  height: 100%;
+  background-image: url("../public/match/Banner.svg");
+  background-size: cover;
+  background-position: center;
 }
 
 :root {

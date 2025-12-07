@@ -101,10 +101,7 @@ export default function LatestNewsSection() {
           <div></div>
           <div>
             <h2 className="text-5xl font-extrabold leading-tight">AL-ITTIHAD LATEST</h2>
-            <Button
-              variant="default"
-              className="cut-corner-btn mt-5 w-fit rounded-none px-6 py-6 text-black bg-[#FFE000] hover:bg-yellow-500 font-bold text-sm"
-            >
+            <Button variant="primary" className="py-6 px-6 mt-3">
               VIEW ALL NEWS
             </Button>
           </div>
