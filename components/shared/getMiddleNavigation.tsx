@@ -19,11 +19,11 @@ const GetMiddleNavigation = () => {
   return (
     <>
       <NavigationMenu>
-        <NavigationMenuList className="flex gap-5 xl:gap-10">
+        <NavigationMenuList className="flex md:gap-5 xl:gap-10">
           {navItems.map((item) => {
             const active = pathname === item.href;
             return (
-              <NavigationMenuItem key={item.href}>
+              <NavigationMenuItem key={item.href} className="">
                 <NavigationMenuLink
                   asChild
                   className={`

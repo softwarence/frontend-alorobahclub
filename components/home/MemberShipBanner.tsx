@@ -20,11 +20,11 @@ const MemberShipBanner = () => {
         </div>
 
         {/* Content Wrapper - Full Width, No Container */}
-        <div className="relative z-10 h-full w-full px-0">
+        <div className="relative z-10 h-[400px] md:h-full w-full px-0">
           <div className="grid grid-cols-1 md:grid-cols-2 h-full items-center">
             {/* LEFT TEXT (touches left edge) */}
             <div className="flex flex-col justify-center h-full pl-4 md:pl-12">
-              <h2 className="text-4xl md:text-6xl font-extrabold uppercase text-black leading-tight">
+              <h2 className="text-3xl md:text-6xl font-extrabold uppercase text-black leading-tight">
                 TIGER <br /> MEMBERSHIPS
               </h2>
 

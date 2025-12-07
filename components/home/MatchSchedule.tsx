@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide, SwiperClass } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -21,17 +21,31 @@ import { Progress } from "@/components/ui/progress";
 export default function MatchSchedule() {
   const swiperRef = useRef<SwiperClass | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [slidesPerView, setSlidesPerView] = useState(5);
+  const [slidesPerView, setSlidesPerView] = useState(5.2);
 
   const totalSlides = matches.length;
   const steps = Math.max(totalSlides - slidesPerView + 1, 1);
-
   const progressPercent = Math.min(((activeIndex + 1) / steps) * 100, 100);
 
   const goPrev = () => swiperRef.current?.slidePrev();
   const goNext = () => swiperRef.current?.slideNext();
 
   const isEnd = activeIndex >= steps - 1;
+
+  // Detect responsive slidesPerView (NO STYLE CHANGE)
+  const detectSlides = () => {
+    if (typeof window === "undefined") return 5.2;
+    if (window.innerWidth < 640) return 1.2; // mobile
+    if (window.innerWidth < 1024) return 2.2; // tablet
+    return 5.2; // desktop
+  };
+
+  useEffect(() => {
+    const update = () => setSlidesPerView(detectSlides());
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   return (
     <div className="relative -z-10 flex justify-center py-20 bg-black text-white overflow-hidden">
@@ -42,13 +56,13 @@ export default function MatchSchedule() {
       <div className="relative p-4 w-full">
         {/* Header */}
         <div className="text-center mb-7 pt-10">
-          <h1 className="text-5xl font-extrabold uppercase">UPCOMING MATCH</h1>
+          <h1 className="md:text-5xl text-3xl font-extrabold uppercase">UPCOMING MATCH</h1>
         </div>
 
-        {/* Featured (static example) */}
+        {/* Featured Section */}
         {matches[0] && (
           <div className="flex flex-col items-center mb-12">
-            <div className="flex items-center space-x-12 mb-5">
+            <div className="flex items-center md:space-x-12 space-x-6  mb-5">
               <div className="w-24 h-24 rounded-full">
                 <Image
                   src={matches[0].logoA}
@@ -65,9 +79,22 @@ export default function MatchSchedule() {
                 />
               </div>
             </div>
-            <p className="text-md font-medium mb-5">
+
+            <p className="md:text-md text-sm font-medium mb-3">
               6th November | <span>5:00 PM AST</span> | King Abdullah Sport City
             </p>
+
+            {/* Countdown */}
+            <div className="flex space-x-8 text-center mb-3">
+              {["02", "23", "20", "56"].map((value, i) => (
+                <div key={i} className="flex flex-col items-center p-2 gap-0.5">
+                  <span className="text-4xl font-bold text-white">{value}</span>
+                  <span className="text-sm text-gray-300">
+                    {["days", "hours", "minutes", "secs"][i]}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
@@ -80,23 +107,25 @@ export default function MatchSchedule() {
             }}
             onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
             breakpoints={{
-              640: { slidesPerView: 2.2, spaceBetween: 20 }, // partial next card visible
-              1024: { slidesPerView: 5.2, spaceBetween: 20 }, // desktop
+              0: { slidesPerView: 1.2, spaceBetween: 10 }, // mobile
+              640: { slidesPerView: 2.2, spaceBetween: 20 }, // tablet
+              1024: { slidesPerView: 5.2, spaceBetween: 40 }, // desktop
             }}
-            slidesPerView={5.2} // initial for large screens
-            spaceBetween={40} // controls the gap between cards
+            slidesPerView={5.2}
+            spaceBetween={40} // default for desktop
             modules={[Navigation]}
             navigation={false}
             loop={false}
           >
             {matches.map((match, idx) => (
-              <SwiperSlide key={idx} className="h-auto">
+              <SwiperSlide key={idx} className="h-auto ml-2">
                 <MatchCard match={match} />
               </SwiperSlide>
             ))}
           </Swiper>
+
+          {/* Controls */}
           <div className="flex items-center gap-5 px-10">
-            {/* Navigation Buttons */}
             <div className="flex justify-center gap-6 pr-10">
               <Button
                 onClick={goPrev}
@@ -107,6 +136,7 @@ export default function MatchSchedule() {
               >
                 ←
               </Button>
+
               <Button
                 onClick={goNext}
                 disabled={isEnd}
@@ -117,11 +147,12 @@ export default function MatchSchedule() {
                 →
               </Button>
             </div>
-            {/* ShadCN Progress Bar */}
+
+            {/* Progress Bar */}
             <Progress
               bgColor="bg-yellow-400"
               value={progressPercent}
-              className="mt-3 h-[2px] rounded-full transition-[width] duration-500 ease-in-out "
+              className="mt-3 h-[2px] rounded-full transition-[width] duration-500 ease-in-out"
             />
           </div>
         </div>

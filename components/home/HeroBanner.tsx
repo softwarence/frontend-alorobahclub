@@ -38,14 +38,12 @@ export default function HeroBanner() {
 
   const duration = 10000; // 10s
 
-  // Function to go to a specific slide
   const goTo = (i: number) => {
     setIndex(i);
     setProgress(0);
     progressRef.current = 0;
   };
 
-  // Auto-slide & progress
   useEffect(() => {
     const startTime = Date.now() - (progressRef.current * duration) / 100;
 
@@ -71,10 +69,8 @@ export default function HeroBanner() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-black">
-      {/* Bottom-Left Light Gradient Overlay */}
       <div className="pointer-events-none absolute inset-0 z-1 bg-gradient-to-tr from-black/40 via-black/10 to-transparent" />
 
-      {/* Slide Image */}
       <div className="relative h-full w-full">
         <Image
           src={slides[index].image}
@@ -84,11 +80,20 @@ export default function HeroBanner() {
         />
 
         {/* Text overlay */}
-        <div className="absolute bottom-23 left-12 xl:max-w-2xl max-w-md space-y-3 drop-shadow-xl z-10">
+        <div
+          className="
+            absolute
+            bottom-16 left-6
+            md:bottom-20 md:left-10
+            lg:bottom-23 lg:left-12
+            xl:max-w-2xl max-w-md
+            space-y-3 drop-shadow-xl z-10
+          "
+        >
           <Card className="bg-transparent border-0 p-0">
             <CardContent className="p-0">
-              <p className="text-white/60 opacity-90">{slides[index].desc}</p>
-              <h2 className="xl:text-7xl text-5xl font-bold text-white">
+              <p className="text-white/60 opacity-90 text-sm md:text-base">{slides[index].desc}</p>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-bold text-white">
                 {slides[index].subtitle}
               </h2>
             </CardContent>
@@ -96,25 +101,31 @@ export default function HeroBanner() {
         </div>
       </div>
 
-      {/* Yellow progress bars with text under the bar */}
-      <div className="absolute bottom-10 left-12 flex gap-5 z-40">
+      {/* Progress bars */}
+      <div
+        className="
+          absolute
+          bottom-5 left-1/2 -translate-x-1/2
+          flex gap-3
+          md:bottom-10 md:left-12 md:translate-x-0 md:gap-5
+          z-40
+        "
+      >
         {slides.map((slide, i) => (
           <div
             key={i}
-            className="cursor-pointer flex flex-col items-start max-w-[145px] xl:max-w-[165px]"
+            className="cursor-pointer flex flex-col items-start max-w-[110px] md:max-w-[145px] xl:max-w-[165px]"
             onClick={() => goTo(i)}
           >
-            {/* Progress bar with width same as text */}
             <Progress
               value={i === index ? progress : i < index ? 100 : 0}
               className="w-full h-[2px] rounded bg-white/30 [&>div]:bg-[#FFE000]"
             />
-            {/* Text under the bar */}
             <div
-              className={`font-bold text-[14px] uppercase mt-1 truncate w-full ${
+              className={`font-bold text-[11px] md:text-[14px] uppercase mt-1 truncate w-full ${
                 i === index ? "text-[#FFE000]" : "text-white/50"
               }`}
-              title={slide.title} // shows full text on hover
+              title={slide.title}
             >
               {slide.title}
             </div>

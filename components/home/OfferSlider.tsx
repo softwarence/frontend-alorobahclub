@@ -3,9 +3,6 @@
 import Image from "next/image";
 import logo from "@/public/assets/logo_blue.svg";
 
-// import { Badge } from "@/components/ui/badge";
-// import { Separator } from "@/components/ui/separator";
-
 interface PanelItem {
   id: number;
   text: string;
@@ -25,20 +22,18 @@ export default function OfferSlider() {
 
   return (
     <div className="relative w-full bg-[#FFE000] overflow-hidden select-none py-2">
-      {/* Left & Right Gradient Edges */}
-      <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#FFE000] to-transparent pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#FFE000] to-transparent pointer-events-none" />
-
       {/* Marquee Track */}
-      <div className="flex animate-marquee gap-30 whitespace-nowrap">
+      <div className="flex animate-marquee md:gap-30 whitespace-nowrap">
         {duplicated.map((item, i) => (
           <div
             key={`${item.id}-${i}`}
-            className="flex items-center gap-8 px-4 shrink-0 py-3"
+            className="flex items-center md:gap-8 px-4 shrink-0 py-3 md:h-auto"
             aria-hidden={i >= panels.length} // hide duplicated items from screen readers
           >
-            <Image src={logo} alt="logo"></Image>
-            <p className="text-black font-extrabold uppercase text-5xl pb-1">{item.text}</p>
+            <Image src={logo} alt="logo" className="h-[35px] md:h-auto"></Image>
+            <p className="text-black font-extrabold uppercase md:text-5xl text-3xl pb-1">
+              {item.text}
+            </p>
           </div>
         ))}
       </div>
