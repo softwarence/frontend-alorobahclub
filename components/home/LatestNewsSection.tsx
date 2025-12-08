@@ -19,12 +19,12 @@ interface Slide {
 }
 
 const ChamferCard = ({ img, title }: Slide) => (
-  <div className="cut-corner relative w-full max-w-[385px] rounded-xl overflow-hidden shadow-xl group">
+  <div className="cut-corner relative w-full max-w-full md:max-w-[385px] rounded-xl overflow-hidden shadow-xl group">
     <div className="overflow-hidden">
       <Image
         src={img}
         alt={title}
-        className="w-full h-[420px] md:h-[500px] lg:h-[600px] object-cover transform transition-transform duration-500 group-hover:scale-105"
+        className="w-full h-[420px] md:h-[500px] lg:h-[600px] object-cover transition-transform duration-500 group-hover:scale-105"
         draggable={false}
       />
     </div>
@@ -55,14 +55,14 @@ export default function LatestNewsSection() {
   ];
 
   const totalSlides = slides.length;
-
   const flickingRef = useRef<Flicking>(null);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(3);
   const [isReady, setIsReady] = useState(false);
 
-  // --- Responsive items per view ---
+  // Calculate slides per view responsive
   const calculateItemsPerView = () => {
     if (window.innerWidth < 640) return 1; // mobile
     if (window.innerWidth < 1024) return 2; // tablet
@@ -154,7 +154,6 @@ export default function LatestNewsSection() {
             circular={false}
             bound={true}
             moveType="snap"
-            panelsPerView={itemsPerView}
             className="w-full flex"
             preventClickOnDrag
             onReady={handleReady}
@@ -164,11 +163,12 @@ export default function LatestNewsSection() {
               <div
                 key={i}
                 className="
-                flex-shrink-0
-                basis-[85vw]
-                sm:basis-[calc(50%-12px)]
-                lg:basis-[calc(33.33%-16px)]
-                mr-3"
+                  flex-shrink-0
+                  basis-[90vw]
+                  md:basis-[85vw]
+                  lg:basis-[calc(33.33%-16px)]
+                  mr-3
+                "
               >
                 <ChamferCard {...slide} />
               </div>

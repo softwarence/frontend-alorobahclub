@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 
+// Assuming these imports are correct based on your setup
 import img1 from "@/public/test-image/t1.jpg";
 import img2 from "@/public/test-image/t4.jpg";
 import img3 from "@/public/test-image/t3.jpg";
@@ -33,26 +33,30 @@ const slides = [
 export default function HeroBanner() {
   const [index, setIndex] = useState(0);
   const [progress, setProgress] = useState(0);
-  const progressRef = useRef(0);
-  const animationRef = useRef<number | null>(null);
 
-  const duration = 10000; // 10s
+  const animationRef = useRef<number | null>(null);
+  const startRef = useRef<number>(0);
+  const duration = 10000; // 10 seconds
 
   const goTo = (i: number) => {
+    // STOP previous animation instantly
+    if (animationRef.current) cancelAnimationFrame(animationRef.current);
+
     setIndex(i);
     setProgress(0);
-    progressRef.current = 0;
+    startRef.current = performance.now();
   };
 
   useEffect(() => {
-    const startTime = Date.now() - (progressRef.current * duration) / 100;
+    startRef.current = performance.now();
 
-    const tick = () => {
-      const elapsed = Date.now() - startTime;
+    const tick = (now: number) => {
+      const elapsed = now - startRef.current;
       const pct = Math.min(100, (elapsed / duration) * 100);
+
       setProgress(pct);
 
-      if (elapsed >= duration) {
+      if (pct >= 100) {
         goTo((index + 1) % slides.length);
       } else {
         animationRef.current = requestAnimationFrame(tick);
@@ -63,7 +67,6 @@ export default function HeroBanner() {
 
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
-      progressRef.current = progress;
     };
   }, [index]);
 
@@ -117,10 +120,16 @@ export default function HeroBanner() {
             className="cursor-pointer flex flex-col items-start max-w-[110px] md:max-w-[145px] xl:max-w-[165px]"
             onClick={() => goTo(i)}
           >
-            <Progress
-              value={i === index ? progress : i < index ? 100 : 0}
-              className="w-full h-[2px] rounded bg-white/30 [&>div]:bg-[#FFE000]"
-            />
+            <div className="w-full h-[2px] bg-white/30 rounded overflow-hidden">
+              <div
+                className="h-full bg-[#FFE000]"
+                style={{
+                  width: i < index ? "100%" : i === index ? `${progress}%` : "0%",
+                  transition: i === index ? "none" : "width 0.3s linear",
+                }}
+              />
+            </div>
+
             <div
               className={`font-bold text-[11px] md:text-[14px] uppercase mt-1 truncate w-full ${
                 i === index ? "text-[#FFE000]" : "text-white/50"

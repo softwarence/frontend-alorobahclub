@@ -8,13 +8,14 @@ import GetMiddleNavigation from "./getMiddleNavigation";
 import GetRightSideButton from "./getRightSideButton";
 import GetLanguageToggleButton from "./getLanguageToggleButton";
 
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Menu, X } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Header() {
   const pathname = usePathname();
@@ -94,15 +95,16 @@ export default function Header() {
                   const isActive = pathname === item.href;
 
                   return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={`flex items-center gap-3 px-2 py-2 rounded-lg transition
-                ${isActive ? "text-white bg-white/10" : "text-white/70 hover:text-white"}
-              `}
-                    >
-                      {item.name}
-                    </Link>
+                    <SheetClose asChild key={item.href}>
+                      <Link
+                        href={item.href}
+                        className={`flex items-center gap-3 px-2 py-2 rounded-lg transition
+                           ${isActive ? "text-white bg-white/10" : "text-white/70 hover:text-white"}
+                        `}
+                      >
+                        {item.name}
+                      </Link>
+                    </SheetClose>
                   );
                 })}
               </nav>
