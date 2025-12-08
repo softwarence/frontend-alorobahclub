@@ -55,7 +55,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div
       className={`group relative w-full max-w-xs overflow-hidden rounded-lg bg-[#005E76] shadow-xl cut-corner ${
-        firstItem ? "scale-y-105 origin-top" : ""
+        firstItem ? "md:scale-y-105 origin-top" : ""
       }`}
     >
       {/* Product Tag */}
