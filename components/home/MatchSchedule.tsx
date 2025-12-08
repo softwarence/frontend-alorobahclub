@@ -118,8 +118,8 @@ export default function MatchSchedule() {
             loop={false}
           >
             {matches.map((match, idx) => (
-              <SwiperSlide key={idx} className="h-auto ml-2">
-                <MatchCard match={match} />
+              <SwiperSlide key={idx} className="h-auto">
+                <MatchCard idx={idx} match={match} />
               </SwiperSlide>
             ))}
           </Swiper>
