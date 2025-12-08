@@ -6,20 +6,20 @@ import { Carousel, CarouselContent, CarouselItem, CarouselApi } from "@/componen
 import { Button } from "@/components/ui/button";
 
 // --- LOGOS ---
-import logoL1 from "@/public/assets/sponsors/l1.svg";
-import logoL2 from "@/public/assets/sponsors/l2.svg";
-import logoL3 from "@/public/assets/sponsors/l3.svg";
-import logoL4 from "@/public/assets/sponsors/l4.svg";
-import logoL5 from "@/public/assets/sponsors/l5.svg";
-import logoL6 from "@/public/assets/sponsors/l6.svg";
-import logoL7 from "@/public/assets/sponsors/l7.svg";
-import logoL8 from "@/public/assets/sponsors/l3.svg";
-import logoL9 from "@/public/assets/sponsors/l6.svg";
-import logoL10 from "@/public/assets/sponsors/l4.svg";
-import logoL11 from "@/public/assets/sponsors/l7.svg";
-import logoL12 from "@/public/assets/sponsors/l1.svg";
-import logoL13 from "@/public/assets/sponsors/l3.svg";
-import logoL14 from "@/public/assets/sponsors/l5.svg";
+import logoL1 from "@/public/assets/Sponsors/l1.svg";
+import logoL2 from "@/public/assets/Sponsors/l2.svg";
+import logoL3 from "@/public/assets/Sponsors/l3.svg";
+import logoL4 from "@/public/assets/Sponsors/l4.svg";
+import logoL5 from "@/public/assets/Sponsors/l5.svg";
+import logoL6 from "@/public/assets/Sponsors/l6.svg";
+import logoL7 from "@/public/assets/Sponsors/l7.svg";
+import logoL8 from "@/public/assets/Sponsors/l3.svg";
+import logoL9 from "@/public/assets/Sponsors/l6.svg";
+import logoL10 from "@/public/assets/Sponsors/l4.svg";
+import logoL11 from "@/public/assets/Sponsors/l7.svg";
+import logoL12 from "@/public/assets/Sponsors/l1.svg";
+import logoL13 from "@/public/assets/Sponsors/l3.svg";
+import logoL14 from "@/public/assets/Sponsors/l5.svg";
 
 // --- ARROWS ---
 import leftArrow from "@/public/assets/Sponsors/leftArrow.svg";
