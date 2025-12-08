@@ -10,7 +10,7 @@ interface MatchCardProps {
 
 const MatchCard: React.FC<MatchCardProps> = ({ match }) => {
   return (
-    <div className="cut-corner bg-[#001317] w-[356px] p-6 backdrop-blur-sm h-[350px]">
+    <div className="cut-corner bg-[#001317] max-w-[356px] p-6 backdrop-blur-sm  min-h-[350px]">
       {/* Logos */}
       <div className="flex flex-col gap-5 pb-5 h-3/5">
         <div className="flex justify-center">

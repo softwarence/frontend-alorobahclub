@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -9,7 +8,7 @@ import { Label } from "@/components/ui/label";
 const SignUpFrom = () => {
   return (
     <section className="bg-black pb-20">
-      <div className="px-4">
+      <div className="md:px-4">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-12 items-center">
           {/* LEFT TITLE */}
           <div className="text-white px-5 col-span-3">
@@ -86,17 +85,17 @@ const SignUpFrom = () => {
             />
 
             {/* CONSENT */}
-            <div className="flex items-center pt-2">
+            <div className="flex md:items-center pt-2">
               <Checkbox
                 id="consent"
                 className="
+                mt-1 md:mt-1
                   border-gray-600
                   bg-gray-700
                   data-[state=checked]:bg-[#ffda00]
                   data-[state=checked]:border-[#ffda00]
                 "
               />
-
               <Label
                 htmlFor="consent"
                 className="ml-3 text-xs text-gray-400 cursor-pointer leading-relaxed"
@@ -108,7 +107,7 @@ const SignUpFrom = () => {
             </div>
 
             {/* SUBMIT BUTTON */}
-            <Button variant={"primary"} type="submit" className=" px-6">
+            <Button variant={"primary"} type="submit" className="px-6">
               SUBMIT
             </Button>
           </form>

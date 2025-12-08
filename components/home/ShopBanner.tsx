@@ -27,7 +27,7 @@ export default function ShopBanner() {
 
         {/* Hero Content - CENTERED */}
         <div className="absolute inset-0 flex flex-col items-center justify-end pb-10 text-center px-6 md:px-20 space-y-6">
-          <h1 className="text-3xl md:text-6xl font-bold text-white">NEW 2025/26 THIRD KIT</h1>
+          <h1 className="text-2xl md:text-6xl font-bold text-white">NEW 2025/26 THIRD KIT</h1>
           <Button variant={"primary"} className="py-5 px-5 cut-corner-btn">
             SHOP NOW
           </Button>

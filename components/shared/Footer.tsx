@@ -2,15 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { Button } from "@/components/ui/button";
 
 // --- ASSETS ---
-import AlOrobahLogo from "@/public/assets/logo.svg"; // Main logo
+import AlOrobahLogo from "@/public/assets/logo_d.svg"; // Main logo
 import AppStoreBadge from "@/public/assets/footer/apple.svg"; // App Store badge
 import GooglePlayBadge from "@/public/assets/footer/goggle.svg"; // Google Play badge
 import GetMiddleNavigation from "./getMiddleNavigation";
 import GetRightSideButton from "./getRightSideButton";
+import GetLanguageToggleButton from "./getLanguageToggleButton";
 
 // --- SOCIAL ICONS ---
 import youtube from "@/public/assets/social/youtube.svg";
@@ -19,7 +19,6 @@ import instagram from "@/public/assets/social/instragram.svg";
 import tiktok from "@/public/assets/social/tiktok.svg";
 import snapChat from "@/public/assets/social/snapChat.svg";
 
-import GetLanguageToggleButton from "./getLanguageToggleButton";
 const Footer = () => {
   const socialLinks = [
     { name: "YouTube", icon: youtube, href: "#youtube" },
@@ -30,14 +29,14 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-[#001E24]  border-b-3 border-[#FFE000] overflow-hidden">
-      {/* dark background */}
+    <footer className="relative bg-[#001E24] border-b-3 border-[#FFE000] overflow-hidden">
+      {/* Dark background */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/50 via-black/40 to-black/50 z-0" />
 
-      {/* logo section  */}
-      <section className="px-4 py-12 flex flex-col md:flex-row items-center justify-center gap-20 z-10 relative">
-        {/* Logo Section */}
-        <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48">
+      {/* Logo & Download Section */}
+      <section className="md:px-4 md:py-12 pt-12 flex flex-row items-center justify-center gap-1 md:gap-20 z-10 relative">
+        {/* Logo */}
+        <div className="relative w-32 h-25 flex-shrink-0">
           <Image
             src={AlOrobahLogo}
             alt="Al-Orobah Club Logo"
@@ -48,12 +47,11 @@ const Footer = () => {
         </div>
 
         {/* Download Section */}
-        <div className="flex flex-col items-center justify-center space-y-4">
-          <p className="text-white text-lg sm:text-xl font-semibold text-center md:text-left">
+        <div className="flex flex-col items-center justify-center space-y-4 text-center md:text-left pr-5">
+          <p className="text-white md:text-lg sm:text-xl font-semibold">
             Download the Al-Orobah App
           </p>
-          <div className="flex gap-3  justify-center md:justify-start">
-            {/* App Store Badge */}
+          <div className="flex gap-3 justify-center md:justify-start">
             <Button variant="outline" className="p-0">
               <Link href="#" target="_blank" rel="noopener noreferrer" className="block">
                 <Image
@@ -65,8 +63,6 @@ const Footer = () => {
                 />
               </Link>
             </Button>
-
-            {/* Google Play Badge */}
             <Button variant="outline" className="p-0">
               <Link href="#" target="_blank" rel="noopener noreferrer" className="block">
                 <Image
@@ -82,45 +78,44 @@ const Footer = () => {
         </div>
       </section>
 
-      {/* link section */}
-      <section className="flex gap-10 justify-center pb-20 z-10 relative">
-        <GetMiddleNavigation></GetMiddleNavigation>
-        <GetRightSideButton></GetRightSideButton>
+      {/* Navigation Links */}
+      <section className="md:flex flex-col md:flex-row gap-4 md:gap-10 justify-center pb-20 z-10 relative hidden">
+        <GetMiddleNavigation />
+        <GetRightSideButton />
       </section>
 
-      {/* social section */}
+      {/* Social Section */}
       <section className="relative z-10 px-4 sm:px-6 lg:px-8 py-4">
-        {/* Inner container with the thin blue border */}
-        <div className="p-4">
-          <div className="flex justify-between items-center">
-            {/* Left Section: Social Icons */}
-            <div className="flex items-center space-x-1">
-              {socialLinks.map((link) => (
-                <a
-                  target="_blank"
-                  key={link.name}
-                  href={link.href}
-                  aria-label={link.name}
-                  className="p-1 hover:scale-110 duration-300 ease-in-out transition-colors"
-                >
-                  <Image src={link.icon} alt={`${link.name} Icon`} width={22} height={20} />
-                </a>
-              ))}
-            </div>
-
-            <div className="flex items-center space-x-6 text-sm text-gray-400">
-              <a href="#contact" className="hover:text-white transition-colors">
-                Contact us
+        <div className="p-4 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
+          {/* Social Icons */}
+          <div className="flex items-center space-x-1">
+            {socialLinks.map((link) => (
+              <a
+                target="_blank"
+                key={link.name}
+                href={link.href}
+                aria-label={link.name}
+                className="p-1 hover:scale-110 duration-300 ease-in-out transition-colors"
+              >
+                <Image src={link.icon} alt={`${link.name} Icon`} width={22} height={20} />
               </a>
-              <a href="#privacy" className="hover:text-white transition-colors">
-                Privacy Policy
-              </a>
-              <span>© All Rights Reserved 2025</span>
-            </div>
+            ))}
+          </div>
 
-            <div className="flex items-center space-x-4">
-              <GetLanguageToggleButton />
-            </div>
+          {/* Links & copyright */}
+          <div className="flex flex-col md:flex-row items-center md:space-x-6 text-sm text-gray-400 text-center md:text-left gap-2 md:gap-0">
+            <a href="#contact" className="hover:text-white transition-colors">
+              Contact us
+            </a>
+            <a href="#privacy" className="hover:text-white transition-colors">
+              Privacy Policy
+            </a>
+            <span>© All Rights Reserved 2025</span>
+          </div>
+
+          {/* Language Toggle */}
+          <div className="flex justify-end w-full md:w-auto">
+            <GetLanguageToggleButton />
           </div>
         </div>
       </section>
