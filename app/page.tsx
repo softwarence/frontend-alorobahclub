@@ -19,11 +19,6 @@ export default function Home() {
         <HeroBanner></HeroBanner>
       </div>
       <LatestNewsSection></LatestNewsSection>
-      {/* <div className="bg-[#0A0E15]">
-        <Link href="#">
-          <SignUpSection></SignUpSection>
-        </Link>
-      </div> */}
       <SignUpBanner></SignUpBanner>
       <MatchSchedule></MatchSchedule>
       <OfferSlider></OfferSlider>
