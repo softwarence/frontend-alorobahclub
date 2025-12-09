@@ -2541,11 +2541,11 @@ __metadata:
   linkType: hard
 
 "baseline-browser-mapping@npm:^2.9.0":
-  version: 2.9.2
-  resolution: "baseline-browser-mapping@npm:2.9.2"
+  version: 2.9.4
+  resolution: "baseline-browser-mapping@npm:2.9.4"
   bin:
     baseline-browser-mapping: dist/cli.js
-  checksum: 10c0/4f9be09e20261ed26f19e9b95454dcb8d8371b87983c57cd9f70b9572e9b3053577f0d8d6d91297bdb605337747680686e22f62522a6e57ae2488fcacf641188
+  checksum: 10c0/5f33f2505130a234d70b332e3dbedf79655fa2be8287c4f4ea2dd0caca9e1c0c2598d8f5c3798e632382404a414de2b47710ec06b6741deb5e1236eb0b62803b
   languageName: node
   linkType: hard
 
@@ -3052,7 +3052,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enhanced-resolve@npm:^5.18.3":
+"enhanced-resolve@npm:^5.10.0, enhanced-resolve@npm:^5.18.3":
   version: 5.18.3
   resolution: "enhanced-resolve@npm:5.18.3"
   dependencies:
@@ -3722,6 +3722,7 @@ __metadata:
     lint-staged: "npm:^16.2.7"
     lucide-react: "npm:^0.556.0"
     next: "npm:^16.0.7"
+    next-transpile-modules: "npm:^10.0.1"
     prettier: "npm:^3.7.4"
     react: "npm:^19.2.1"
     react-dom: "npm:^19.2.1"
@@ -4930,6 +4931,15 @@ __metadata:
   version: 1.4.0
   resolution: "natural-compare@npm:1.4.0"
   checksum: 10c0/f5f9a7974bfb28a91afafa254b197f0f22c684d4a1731763dda960d2c8e375b36c7d690e0d9dc8fba774c537af14a7e979129bca23d88d052fbeb9466955e447
+  languageName: node
+  linkType: hard
+
+"next-transpile-modules@npm:^10.0.1":
+  version: 10.0.1
+  resolution: "next-transpile-modules@npm:10.0.1"
+  dependencies:
+    enhanced-resolve: "npm:^5.10.0"
+  checksum: 10c0/e047655170bc5bfdfad7d3694a28a49dc7e817c6616bbd0b9139a03a81f4bee34c96ecfdbc1cb626ea66a79b54322782ad316bf72d2a367fa424795e6ef7bcca
   languageName: node
   linkType: hard
 

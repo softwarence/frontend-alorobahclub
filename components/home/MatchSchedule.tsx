@@ -51,7 +51,7 @@ export default function MatchSchedule() {
     <div className="relative -z-10 flex justify-center py-20 bg-black text-white overflow-hidden">
       {/* Background */}
       <Image src={Banner} alt="Match Schedule Background" fill priority className="object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-tl from-black/95 via-black/70 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-tl from-black/95 via-black/70 to-transparent pointer-events-none" />
 
       <div className="relative p-4 w-full">
         {/* Header */}
@@ -152,7 +152,7 @@ export default function MatchSchedule() {
             <Progress
               bgColor="bg-yellow-400"
               value={progressPercent}
-              className="mt-3 h-[2px] rounded-full transition-[width] duration-500 ease-in-out"
+              className="mt-3 h-0.5 rounded-full transition-[width] duration-500 ease-in-out"
             />
           </div>
         </div>
