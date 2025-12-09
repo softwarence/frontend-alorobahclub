@@ -1,13 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
 .cut-corner {
   clip-path: polygon(
     18px 0%,
@@ -45,6 +38,12 @@ body {
     0% calc(100% - 5px),
     0% 5px
   );
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 @custom-variant dark (&:is(.dark *));

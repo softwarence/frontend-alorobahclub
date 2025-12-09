@@ -8,13 +8,14 @@ import GetMiddleNavigation from "./getMiddleNavigation";
 import GetRightSideButton from "./getRightSideButton";
 import GetLanguageToggleButton from "./getLanguageToggleButton";
 
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Menu, X } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
 import { usePathname } from "next/navigation";
+import { Button } from "../ui/button";
 
 export default function Header() {
   const pathname = usePathname();
@@ -22,18 +23,18 @@ export default function Header() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
-    { name: "Services", href: "/services" },
-    { name: "Contact", href: "/contact" },
+    { name: "News & Media", href: "/news" },
+    { name: "Team", href: "/team" },
+    { name: "Matches", href: "/matches" },
   ];
+
+  const path = usePathname();
+  const matchPage = path.includes("/matches");
+
   return (
     <header
-      className="
-      absolute top-0 left-0 w-full z-50
-      bg-gradient-to-b
-      from-black/95
-      via-black/60
-      to-transparent
-    "
+      className={`
+      ${matchPage ? "bg-[#001317]" : "absolute  bg-gradient-to-b from-black/95 via-black/60 to-transparent"} top-0 left-0 w-full z-50`}
     >
       <div className="border-t-7 border-[#0091B6] flex justify-end xl:px-12 px-5 py-2">
         <GetLanguageToggleButton></GetLanguageToggleButton>
@@ -58,9 +59,9 @@ export default function Header() {
         </nav>
         <Sheet>
           <SheetTrigger asChild>
-            <button className="p-2 rounded-xl bg-black/40 backdrop-blur-md shadow-lg hover:bg-black/60 transition md:hidden">
+            <Button className="py-6 rounded-xl bg-black/40 backdrop-blur-md shadow-lg hover:bg-black/60 transition md:hidden">
               <Menu className="text-white size-7" />
-            </button>
+            </Button>
           </SheetTrigger>
 
           <SheetContent
@@ -94,15 +95,16 @@ export default function Header() {
                   const isActive = pathname === item.href;
 
                   return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={`flex items-center gap-3 px-2 py-2 rounded-lg transition
-                ${isActive ? "text-white bg-white/10" : "text-white/70 hover:text-white"}
-              `}
-                    >
-                      {item.name}
-                    </Link>
+                    <SheetClose asChild key={item.href}>
+                      <Link
+                        href={item.href}
+                        className={`flex items-center gap-3 px-2 py-2 rounded-lg transition
+                           ${isActive ? "text-white bg-white/10" : "text-white/70 hover:text-white"}
+                        `}
+                      >
+                        {item.name}
+                      </Link>
+                    </SheetClose>
                   );
                 })}
               </nav>
