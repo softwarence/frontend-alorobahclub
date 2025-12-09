@@ -114,8 +114,8 @@ export default function LatestNewsSection() {
           <div />
 
           <div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
-              AL-ITTIHAD LATEST
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight uppercase">
+              al-orobah latest
             </h2>
 
             <Button variant="primary" className="py-5 px-5 mt-4 md:mt-3">

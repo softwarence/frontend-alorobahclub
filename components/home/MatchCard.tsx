@@ -7,14 +7,14 @@ import V_black_Logo from "@/public/assets/match/V_black.svg";
 
 interface MatchCardProps {
   match: Match;
-  idx: number;
+  isYellow: boolean;
+  bgColor: string;
 }
 
-const MatchCard: React.FC<MatchCardProps> = ({ match, idx }) => {
-  const isYellow: boolean = idx === 0;
+const MatchCard: React.FC<MatchCardProps> = ({ match, isYellow, bgColor }) => {
   return (
     <div
-      className={`cut-corner ${isYellow ? "bg-[#FFE000]" : "bg-[#001317]"} max-w-[356px] p-6 backdrop-blur-sm  min-h-[350px]`}
+      className={`cut-corner ${isYellow ? "bg-[#FFE000]" : bgColor} w-full md:max-w-[356px] p-6 backdrop-blur-sm  min-h-[350px] text-white`}
     >
       {/* Logos */}
       <div className="flex flex-col gap-5 pb-5 h-3/5">
