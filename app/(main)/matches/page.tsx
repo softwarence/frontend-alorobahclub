@@ -1,6 +1,6 @@
 import MatchNavItems from "@/components/matches/MatchNavItems";
 
-import MatchHeroComponent from "./../../components/matches/MatchHeroComponent";
+import MatchHeroComponent from "../../../components/matches/MatchHeroComponent";
 
 import MatchScheduleCardContainer from "@/components/matches/MatchScheduleCardContainer";
 import { matches } from "@/components/home/data";
@@ -69,7 +69,6 @@ const MatchPage = () => {
           matches={item.matches}
         />
       ))}
-      <SponsorsCarousel></SponsorsCarousel>
     </div>
   );
 };

@@ -66,7 +66,6 @@ function News() {
       <div className="pb-5">
         <CardGrid items={items.slice(6, 8)}></CardGrid>
       </div>
-      <SponsorsCarousel></SponsorsCarousel>
     </div>
   );
 }
