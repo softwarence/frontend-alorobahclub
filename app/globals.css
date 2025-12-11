@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+.bg {
+  background-color: #001317;
+}
+
 .cut-corner {
   clip-path: polygon(
     18px 0%,
