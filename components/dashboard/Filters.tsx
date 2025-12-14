@@ -13,16 +13,21 @@ export default function Filters() {
 
       {/* Filters */}
       <div className="flex flex-wrap gap-2">
-        <select className="border px-3 py-2 rounded text-sm w-full sm:w-auto">
+        <select className="border px-3 py-2 rounded-md text-sm">
           <option>Default sorting</option>
+          <option>Newest</option>
+          <option>Oldest</option>
         </select>
 
-        <select className="border px-3 py-2 rounded text-sm w-full sm:w-auto">
+        <select className="border px-3 py-2 rounded-md text-sm">
           <option>Select a category</option>
+          <option>Newest</option>
+          <option>Oldest</option>
         </select>
-
-        <select className="border px-3 py-2 rounded text-sm w-full sm:w-auto">
+        <select className="border px-3 py-2 rounded-md text-sm">
           <option>Default stock status</option>
+          <option>Newest</option>
+          <option>Oldest</option>
         </select>
 
         <button className="border px-4 py-2 rounded text-sm w-full sm:w-auto">Filter</button>
