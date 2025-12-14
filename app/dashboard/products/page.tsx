@@ -7,7 +7,7 @@ export default function ProductsPage() {
       {/* Header */}
       <div className=" sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <div className="flex justify-between">
-          <h1 className="text-3xl pb-4">Posts</h1>
+          <h1 className="text-3xl pb-4">Products</h1>
           <select className="border px-2  rounded-md text-sm">
             <option>Bulk actions</option>
             <option>Delete</option>

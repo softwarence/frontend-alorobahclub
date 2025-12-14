@@ -5,7 +5,7 @@ function Overview() {
   return (
     <div className="bg-gray-50">
       <div className="flex justify-between p-5">
-        <h1 className="text-3xl pb-4">Posts</h1>
+        <h1 className="text-3xl pb-4">Overview</h1>
         <select className="border px-2  rounded-md text-sm">
           <option>Bulk actions</option>
           <option>Delete</option>
