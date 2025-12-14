@@ -1,4 +1,3 @@
-import SponsorsCarousel from "@/components/home/SponsorsCarousel";
 import ImageSection from "@/components/news/ImageSection";
 
 import CardGrid from "@/components/news/CardGrid";
