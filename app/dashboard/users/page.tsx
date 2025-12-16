@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MoreVertical, Search } from "lucide-react";
+import { MoreVertical } from "lucide-react";
 
 const USERS = [
   {
@@ -56,7 +56,7 @@ const USERS = [
 ];
 
 export default function UsersPage() {
-  const [query, setQuery] = useState("");
+  const [query] = useState("");
 
   const filteredUsers = USERS.filter((user) =>
     user.name.toLowerCase().includes(query.toLowerCase())
