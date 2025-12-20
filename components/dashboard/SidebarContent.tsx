@@ -13,17 +13,24 @@ import {
   ShoppingCart,
   Users,
 } from "lucide-react";
+import { useState } from "react";
+import { Checkbox } from "../ui/checkbox";
 
 type NavItem = {
   name: string;
   href: string;
   icon: React.ElementType;
 };
-
+// ChartNoAxesColumnIncreasing, ShoppingBasket, StickyNote,
 export function SidebarContent() {
   const pathname = usePathname();
+  const [isAdmin, setIsAdmin] = useState(true);
 
-  const navItems: NavItem[] = [
+  const toggleSelectAll = (checked: boolean) => {
+    setIsAdmin(checked);
+  };
+
+  const adminItem = [
     { name: "Overview", href: "/dashboard", icon: ChartNoAxesColumnIncreasing },
     { name: "Products", href: "/dashboard/products", icon: ShoppingBasket },
     { name: "Posts", href: "/dashboard/posts", icon: StickyNote },
@@ -32,10 +39,26 @@ export function SidebarContent() {
     { name: "Subscribers", href: "/dashboard/subscribers", icon: Mail },
   ];
 
+  const userItem = [
+    { name: "Cart", href: "/dashboard/cart", icon: ChartNoAxesColumnIncreasing },
+    { name: "Order", href: "/dashboard/user-orders", icon: ShoppingBasket },
+    { name: "Personal Info", href: "/dashboard/personal-info", icon: StickyNote },
+  ];
+
+  const navItems: NavItem[] = isAdmin ? [...adminItem] : [...userItem];
+
   return (
     <div className="dark:bg-neutral-900 rounded-lg p-10  flex flex-col justify-between min-h-[70vh]">
       <nav className="flex flex-col gap-6">
-        <h1 className="font-semibold">Menu</h1>
+        <div className="flex justify-between">
+          <h1 className="font-semibold">Menu</h1>
+          <Checkbox
+            isShowIcon={false}
+            className="h-6 w-6 border-black rounded-[7px] bg-white data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600"
+            checked={isAdmin}
+            onCheckedChange={toggleSelectAll}
+          />
+        </div>
 
         {navItems.map((item) => {
           const isActive = pathname === item.href;

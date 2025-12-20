@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -79,86 +80,69 @@ export default function OrdersManager() {
   const [dateFilter, setDateFilter] = useState<string>("all");
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
 
-  /* ---------------- FILTER + SORT ---------------- */
   const filteredOrders = useMemo(() => {
     let result = [...ORDERS];
-
-    // Search (id + title)
     if (search) {
       const q = search.toLowerCase();
       result = result.filter(
         (o) => o.id.toLowerCase().includes(q) || o.title.toLowerCase().includes(q)
       );
     }
-
-    // Date filter
-    if (dateFilter !== "all") {
-      result = result.filter((o) => o.date.startsWith(dateFilter));
-    }
-
-    // Sorting
-    if (sort === "newest") {
+    if (dateFilter !== "all") result = result.filter((o) => o.date.startsWith(dateFilter));
+    if (sort === "newest")
       result.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    }
-    if (sort === "oldest") {
+    if (sort === "oldest")
       result.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-    }
-
     return result;
   }, [search, sort, dateFilter]);
 
-  /* ---------------- SELECTION ---------------- */
   const toggleSelectAll = (checked: boolean) => {
     setSelectedOrders(checked ? filteredOrders.map((o) => o.id) : []);
   };
-
   const toggleSelectOrder = (id: string) => {
     setSelectedOrders((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
   };
 
-  /* ---------------- UNIQUE DATES ---------------- */
   const dates = Array.from(new Set(ORDERS.map((o) => o.date.split(" at ")[0])));
 
-  /* ---------------- STATUS COUNTS ---------------- */
-  const statusCount = useMemo(() => {
-    return {
+  const statusCount = useMemo(
+    () => ({
       all: ORDERS.length,
       processing: ORDERS.filter((o) => o.status === "processing").length,
       completed: ORDERS.filter((o) => o.status === "completed").length,
       cancelled: ORDERS.filter((o) => o.status === "cancelled").length,
-    };
-  }, []);
+    }),
+    []
+  );
 
   return (
     <div className="min-h-70vh">
       {/* Filters */}
       <Card className="bg-transparent shadow-none border-0 pb-0">
         <CardContent className="px-0">
-          <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between items-center w-full">
-            <p className="text-gray-800 flex gap-5 text-md">
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between w-full">
+            <p className="text-gray-800 flex flex-wrap gap-2 md:gap-5 text-md">
               <span className="font-semibold">All ({statusCount.all})</span>
-              <span>Processing ({statusCount.processing})</span>{" "}
+              <span>Processing ({statusCount.processing})</span>
               <span>Completed ({statusCount.completed})</span>
               <span>Cancelled ({statusCount.cancelled})</span>
             </p>
-            <div />
 
-            <div className="flex gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-2 lg:mt-0 items-center">
               <Input
                 type="text"
                 placeholder="Search orders..."
-                className="bg-white min-w-[350px] py-4.5 font-thin placeholder:text-lg text-lg"
+                className="bg-white w-full sm:min-w-[250px] md:min-w-[350px] py-3 md:py-4.5 text-md md:text-lg font-thin placeholder:text-sm md:placeholder:text-lg"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
 
-              <Button variant="dashboardOutline" className="-ml-2">
+              <Button variant="dashboardOutline" className="w-full sm:w-auto">
                 Search
               </Button>
 
-              {/* SORT */}
               <Select value={sort} onValueChange={setSort}>
-                <SelectTrigger className="py-4.5 text-md bg-white text-black font-semibold">
+                <SelectTrigger className="w-full md:w-auto py-3 md:py-4.5 text-md bg-white text-black font-semibold">
                   <SelectValue placeholder="Default sorting" />
                 </SelectTrigger>
                 <SelectContent>
@@ -168,9 +152,8 @@ export default function OrdersManager() {
                 </SelectContent>
               </Select>
 
-              {/* DATE FILTER */}
               <Select value={dateFilter} onValueChange={setDateFilter}>
-                <SelectTrigger className="py-4.5 text-md bg-white text-black font-semibold">
+                <SelectTrigger className="w-full md:w-auto py-3 md:py-4.5 text-md bg-white text-black font-semibold">
                   <SelectValue placeholder="All dates" />
                 </SelectTrigger>
                 <SelectContent>
@@ -183,33 +166,35 @@ export default function OrdersManager() {
                 </SelectContent>
               </Select>
 
-              <Button variant={"dashboardOutline"}>Filter</Button>
+              <Button variant="dashboardOutline" className="w-full sm:w-auto">
+                Filter
+              </Button>
             </div>
           </div>
         </CardContent>
       </Card>
 
       {/* Table */}
-      <Card className="overflow-x-auto border-0 shadow-none bg-transparent">
+      <Card className="overflow-x-auto border-0 shadow-none bg-transparent mt-4">
         <CardContent className="p-0">
           <Table className="w-full border-separate border-spacing-y-4">
             <TableHeader>
               <TableRow className="text-lg">
-                <TableHead className="p-3 pl-10 flex gap-5 items-center">
+                <TableHead className="p-3 pl-4 flex gap-2 sm:gap-5 items-center">
                   <Checkbox
                     isShowIcon={false}
-                    className="h-6 w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
+                    className="h-5 w-5 md:h-6 md:w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
                     checked={
                       selectedOrders.length === filteredOrders.length && filteredOrders.length > 0
                     }
                     onCheckedChange={(c) => toggleSelectAll(!!c)}
                   />
-                  <p>Order</p>
+                  <span>Order</span>
                 </TableHead>
                 <TableHead className="p-3 hidden md:table-cell">Date</TableHead>
                 <TableHead className="p-3">Status</TableHead>
                 <TableHead className="p-3 hidden lg:table-cell">Total</TableHead>
-                <TableHead className="p-3"></TableHead>
+                <TableHead className="p-3 hidden md:table-cell"></TableHead>
               </TableRow>
             </TableHeader>
 
@@ -217,19 +202,19 @@ export default function OrdersManager() {
               {filteredOrders.map((item) => (
                 <TableRow
                   key={item.id}
-                  className="bg-white rounded-lg shadow-sm overflow-hidden hover:bg-gray-50 h-25 text-[16px] "
+                  className="bg-white rounded-lg shadow-sm overflow-hidden hover:bg-gray-50 h-25 text-[16px]"
                 >
-                  <TableCell className="p-3 pl-10 rounded-l-lg">
-                    <div className="flex gap-5 items-center">
+                  <TableCell className="p-3 pl-4 md:pl-10 rounded-l-lg">
+                    <div className="flex gap-2 sm:gap-5 items-center">
                       <Checkbox
                         isShowIcon={false}
-                        className="h-6 w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
+                        className="h-5 w-5 md:h-6 md:w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
                         checked={selectedOrders.includes(item.id)}
                         onCheckedChange={() => toggleSelectOrder(item.id)}
                       />
-                      <div className="flex items-center gap-2">
-                        <p className="font-medium">{item.id}</p>
-                        <p className="font-medium">{item.title}</p>
+                      <div className="flex flex-col sm:flex-row sm:gap-2">
+                        <span className="font-medium">{item.id}</span>
+                        <span className="font-medium">{item.title}</span>
                       </div>
                     </div>
                   </TableCell>
@@ -240,24 +225,24 @@ export default function OrdersManager() {
 
                   <TableCell className="p-3">
                     {item.status === "processing" && (
-                      <span className="bg-[#0075FF] text-white rounded-md py-1.5 px-6">
+                      <span className="bg-[#0075FF] text-white rounded-md py-1 px-4 md:py-1.5 md:px-6">
                         Processing
                       </span>
                     )}
                     {item.status === "completed" && (
-                      <span className="bg-[#52DF60] text-white rounded-md py-1.5 px-6">
+                      <span className="bg-[#52DF60] text-white rounded-md py-1 px-4 md:py-1.5 md:px-6">
                         Completed
                       </span>
                     )}
                     {item.status === "cancelled" && (
-                      <span className="bg-[#FE5A53] text-white rounded-md py-1.5 px-6">
+                      <span className="bg-[#FE5A53] text-white rounded-md py-1 px-4 md:py-1.5 md:px-6">
                         Cancelled
                       </span>
                     )}
                   </TableCell>
 
-                  <TableCell className="p-3 hidden md:table-cell">
-                    <p className="font-semibold">{item.total}</p>
+                  <TableCell className="p-3 hidden lg:table-cell">
+                    <span className="font-semibold">{item.total}</span>
                   </TableCell>
 
                   <TableCell className="hidden md:table-cell text-gray-500">

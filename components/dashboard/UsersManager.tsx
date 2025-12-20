@@ -72,11 +72,8 @@ export default function UsersManager() {
   const [sort, setSort] = useState("all");
   const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
 
-  /* ---------------- FILTER + SORT ---------------- */
   const filteredUsers = useMemo(() => {
     let result = [...USERS];
-
-    // Search
     if (search) {
       const q = search.toLowerCase();
       result = result.filter(
@@ -86,20 +83,13 @@ export default function UsersManager() {
           u.id.toString().includes(q)
       );
     }
-
-    // Sorting
-    if (sort === "newest") {
+    if (sort === "newest")
       result.sort((a, b) => new Date(b.joined).getTime() - new Date(a.joined).getTime());
-    }
-
-    if (sort === "oldest") {
+    if (sort === "oldest")
       result.sort((a, b) => new Date(a.joined).getTime() - new Date(b.joined).getTime());
-    }
-
     return result;
   }, [search, sort]);
 
-  /* ---------------- SELECTION ---------------- */
   const toggleSelectAll = (checked: boolean) => {
     setSelectedUsers(checked ? filteredUsers.map((u) => u.id) : []);
   };
@@ -113,26 +103,26 @@ export default function UsersManager() {
       {/* Filters */}
       <Card className="bg-transparent shadow-none border-0 pb-0">
         <CardContent className="px-0">
-          <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between items-center w-full">
-            <p className="text-gray-800 flex gap-5 text-md">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between w-full">
+            <p className="text-gray-800 flex flex-wrap gap-2 sm:gap-5 text-md">
               <span className="font-semibold">Total ({filteredUsers.length})</span>
             </p>
 
-            <div className="flex gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-2 sm:mt-0 items-center w-full sm:w-auto">
               <Input
                 type="text"
-                placeholder="Search orders..."
-                className="bg-white min-w-[350px] py-4.5 font-thin placeholder:text-lg text-lg"
+                placeholder="Search users..."
+                className="bg-white w-full sm:w-auto min-w-[200px] sm:min-w-[250px] md:min-w-[350px] py-3 md:py-4.5 text-md md:text-lg font-thin placeholder:text-sm md:placeholder:text-lg"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
 
-              <Button variant="dashboardOutline" className="-ml-2">
+              <Button variant="dashboardOutline" className="w-full sm:w-auto">
                 Search
               </Button>
 
               <Select value={sort} onValueChange={setSort}>
-                <SelectTrigger className="py-4.5 text-md bg-white text-black font-semibold">
+                <SelectTrigger className="w-full md:w-auto py-3 md:py-4.5 text-md bg-white text-black font-semibold">
                   <SelectValue placeholder="Default sorting" />
                 </SelectTrigger>
                 <SelectContent>
@@ -142,33 +132,35 @@ export default function UsersManager() {
                 </SelectContent>
               </Select>
 
-              <Button variant="dashboardOutline">Filter</Button>
+              <Button variant="dashboardOutline" className="w-full sm:w-auto">
+                Filter
+              </Button>
             </div>
           </div>
         </CardContent>
       </Card>
 
       {/* Table */}
-      <Card className="overflow-x-auto border-0 shadow-none bg-transparent">
+      <Card className="overflow-x-auto border-0 shadow-none bg-transparent mt-4">
         <CardContent className="p-0">
           <Table className="w-full border-separate border-spacing-y-4">
             <TableHeader>
               <TableRow className="text-lg">
-                <TableHead className="p-3 pl-10 flex gap-5 items-center">
+                <TableHead className="p-3 pl-4 sm:pl-10 flex gap-2 sm:gap-5 items-center">
                   <Checkbox
                     isShowIcon={false}
-                    className="h-6 w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
+                    className="h-5 w-5 md:h-6 md:w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
                     checked={
                       selectedUsers.length === filteredUsers.length && filteredUsers.length > 0
                     }
                     onCheckedChange={(c) => toggleSelectAll(!!c)}
                   />
-                  <p>Name</p>
+                  <span>Name</span>
                 </TableHead>
-                <TableHead className="p-3 hidden md:table-cell">Email</TableHead>
-                <TableHead className="p-3">Address</TableHead>
-                <TableHead className="p-3 hidden lg:table-cell">Joined</TableHead>
-                <TableHead className="p-3"></TableHead>
+                <TableHead className="p-3 sm:table-cell">Email</TableHead>
+                <TableHead className="p-3 md:table-cell">Address</TableHead>
+                <TableHead className="p-3 lg:table-cell">Joined</TableHead>
+                <TableHead className="p-3 sm:table-cell"></TableHead>
               </TableRow>
             </TableHeader>
 
@@ -178,34 +170,25 @@ export default function UsersManager() {
                   key={item.id}
                   className="bg-white rounded-lg shadow-sm overflow-hidden hover:bg-gray-50 h-25 text-[16px]"
                 >
-                  <TableCell className="p-3 pl-10 rounded-l-lg">
-                    <div className="flex gap-5 items-center">
+                  <TableCell className="p-3 pl-4 sm:pl-10 rounded-l-lg">
+                    <div className="flex flex-row gap-2 sm:gap-5 items-start sm:items-center">
                       <Checkbox
                         isShowIcon={false}
-                        className="h-6 w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
+                        className="h-5 w-5 md:h-6 md:w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
                         checked={selectedUsers.includes(item.id)}
                         onCheckedChange={() => toggleSelectUser(item.id)}
                       />
-                      <div className="flex items-center gap-2">
-                        <p className="font-medium">#{item.id}</p>
-                        <p className="font-medium">{item.name}</p>
+                      <div className="flex flex-row sm:gap-2">
+                        <span className="font-medium">#{item.id}</span>
+                        <span className="font-medium">{item.name}</span>
                       </div>
                     </div>
                   </TableCell>
 
-                  <TableCell className="p-3 hidden md:table-cell text-gray-500">
-                    {item.email}
-                  </TableCell>
-
-                  <TableCell className="p-3 hidden md:table-cell text-gray-500">
-                    {item.address}
-                  </TableCell>
-
-                  <TableCell className="p-3 hidden md:table-cell text-gray-500">
-                    {item.joined}
-                  </TableCell>
-
-                  <TableCell className="hidden md:table-cell text-gray-500">
+                  <TableCell className="p-3 sm:table-cell text-gray-500">{item.email}</TableCell>
+                  <TableCell className="p-3 md:table-cell text-gray-500">{item.address}</TableCell>
+                  <TableCell className="p-3 lg:table-cell text-gray-500">{item.joined}</TableCell>
+                  <TableCell className="sm:table-cell text-gray-500  rounded-r-lg">
                     <Ellipsis />
                   </TableCell>
                 </TableRow>

@@ -1,3 +1,5 @@
+import UserOrderManager from "@/components/dashboard/UserOrderManager";
+
 import {
   Select,
   SelectContent,
@@ -6,13 +8,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import OrdersManager from "@/components/dashboard/OrdersManager";
-export default function OrderPage() {
+export default function userOrderPage() {
   return (
-    <div className="bg-[#EEF0F4] min-h-screen p-4 sm:p-6 xl:p-0">
+    <div className="bg-[#EEF0F4] min-h-screen">
       <div className="flex flex-col gap-4 xl:gap-6">
         <h1 className="text-2xl sm:text-3xl xl:text-4xl">Orders</h1>
-
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <Select>
             <SelectTrigger className="w-full sm:w-[180px] text-sm bg-white text-black font-semibold">
@@ -23,8 +23,7 @@ export default function OrderPage() {
             </SelectContent>
           </Select>
         </div>
-
-        <OrdersManager />
+        <UserOrderManager></UserOrderManager>
       </div>
     </div>
   );

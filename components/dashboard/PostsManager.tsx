@@ -75,7 +75,6 @@ export default function PostsManager() {
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   const categories = ["All categories", ...Array.from(new Set(POSTS.map((p) => p.category)))];
-
   const dates = [
     "All dates",
     ...Array.from(new Set(POSTS.map((p) => p.published.split(" at ")[0]))),
@@ -85,27 +84,18 @@ export default function PostsManager() {
 
   const filteredPosts = useMemo(() => {
     let result = [...POSTS];
-
-    // Pattern match search (title only)
     if (search.trim()) {
       const regex = new RegExp(escapeRegExp(search.trim()), "i");
       result = result.filter((p) => regex.test(p.title));
     }
-
-    // Category filter
     if (categoryFilter && categoryFilter !== "All categories") {
       result = result.filter((p) => p.category === categoryFilter);
     }
-
-    // Date filter
     if (dateFilter && dateFilter !== "All dates") {
       result = result.filter((p) => p.published.startsWith(dateFilter));
     }
-
-    // Sorting
     if (sort === "newest") result.sort((a, b) => b.id - a.id);
     if (sort === "oldest") result.sort((a, b) => a.id - b.id);
-
     return result;
   }, [search, categoryFilter, dateFilter, sort]);
 
@@ -121,89 +111,91 @@ export default function PostsManager() {
   };
 
   return (
-    <div className="min-h-70vh">
-      {/* Filters */}
-      <Card className="bg-transparent shadow-none border-0 pb-0">
-        <CardContent className="pl-0">
-          <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between items-center w-full">
-            <p className="text-gray-500">
+    <div className="min-h-70vh px-4 xl:px-0">
+      <Card className="bg-transparent shadow-none border-0 pb-4 xl:pb-0">
+        <CardContent className="p-0">
+          <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4 w-full">
+            <p className="text-gray-500 text-sm md:text-base">
               <span className="font-bold">Published ({filteredPosts.length})</span> Draft (12)
             </p>
 
-            <div className="flex gap-4 justify-center items-center">
-              <Input
-                type="text"
-                placeholder="Search products..."
-                className="bg-white min-w-[350px] py-4.5 font-thin placeholder:text-lg text-lg"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
+            <div className="flex flex-col lg:flex-row gap-3 xl:gap-4 items-stretch lg:items-center w-full xl:w-auto">
+              <div className="flex items-center gap-2 w-full xl:w-auto">
+                <Input
+                  type="text"
+                  placeholder="Search products..."
+                  className="bg-white w-full xl:min-w-[350px] py-4.5 font-thin placeholder:text-lg text-lg"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                <Button variant="dashboardOutline">Search</Button>
+              </div>
 
-              <Button variant="dashboardOutline" className="-ml-2">
-                Search
-              </Button>
+              <div className="grid grid-cols-1 sm:grid-cols-3 lg:flex lg:flex-row gap-2 xl:gap-4">
+                <Select onValueChange={setSort}>
+                  <SelectTrigger className="w-full md:w-auto py-4.5 text-sm md:text-md bg-white text-black font-semibold">
+                    <SelectValue placeholder="Sorting" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="newest">Newest</SelectItem>
+                    <SelectItem value="oldest">Oldest</SelectItem>
+                  </SelectContent>
+                </Select>
 
-              <Select onValueChange={setSort}>
-                <SelectTrigger className="py-4.5 text-md bg-white text-black font-semibold">
-                  <SelectValue placeholder="Default sorting" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="newest">Newest</SelectItem>
-                  <SelectItem value="oldest">Oldest</SelectItem>
-                </SelectContent>
-              </Select>
+                <Select onValueChange={setCategoryFilter}>
+                  <SelectTrigger className="w-full md:w-auto py-4.5 text-sm md:text-md bg-white text-black font-semibold">
+                    <SelectValue placeholder="Category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map((cat) => (
+                      <SelectItem key={cat} value={cat}>
+                        {cat}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
 
-              <Select onValueChange={setCategoryFilter}>
-                <SelectTrigger className="py-4.5 text-md bg-white text-black font-semibold">
-                  <SelectValue placeholder="Select a category" />
-                </SelectTrigger>
-                <SelectContent>
-                  {categories.map((cat) => (
-                    <SelectItem key={cat} value={cat}>
-                      {cat}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                <Select onValueChange={setDateFilter}>
+                  <SelectTrigger className="w-full md:w-auto py-4.5 text-sm md:text-md bg-white text-black font-semibold">
+                    <SelectValue placeholder="All dates" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {dates.map((date) => (
+                      <SelectItem key={date} value={date}>
+                        {date}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
 
-              <Select onValueChange={setDateFilter}>
-                <SelectTrigger className="py-4.5 text-md bg-white text-black font-semibold">
-                  <SelectValue placeholder="All dates" />
-                </SelectTrigger>
-                <SelectContent>
-                  {dates.map((date) => (
-                    <SelectItem key={date} value={date}>
-                      {date}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <Button variant="dashboardOutline">Filter</Button>
+                <Button variant="dashboardOutline" className="sm:col-span-3 lg:col-span-1">
+                  Filter
+                </Button>
+              </div>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Table */}
-      <Card className="overflow-x-auto border-0 shadow-none bg-transparent">
+      {/* Table Section */}
+      <Card className="overflow-x-auto border-0 shadow-none bg-transparent mt-4">
         <CardContent className="p-0">
-          <Table className="w-full border-separate border-spacing-y-5">
+          <Table className="w-full border-separate border-spacing-y-4 border-spacing-x-0 min-w-[800px] xl:min-w-full">
             <TableHeader>
-              <TableRow className="text-lg">
-                <TableHead className="p-3 pl-10 w-[55%] flex items-center gap-5">
-                  <Checkbox
-                    isShowIcon={false}
-                    checked={allSelected}
-                    onCheckedChange={(v) => toggleSelectAll(!!v)}
-                    className="h-6 w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
-                  />
-                  <span>Title</span>
+              <TableRow className="text-lg hover:bg-transparent border-none">
+                <TableHead className="p-3 pl-6 xl:pl-10 w-[55%] border-none">
+                  <div className="flex items-center gap-5">
+                    <Checkbox
+                      isShowIcon={false}
+                      checked={allSelected}
+                      onCheckedChange={(v) => toggleSelectAll(!!v)}
+                      className="h-6 w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
+                    />
+                    <span>Title</span>
+                  </div>
                 </TableHead>
-
-                <TableHead className="p-3 hidden md:table-cell w-[25%]">Categories</TableHead>
-
-                <TableHead className="p-3 hidden md:table-cell w-[20%]">Published</TableHead>
+                <TableHead className="p-3 border-none w-[25%]">Categories</TableHead>
+                <TableHead className="p-3 border-none">Published</TableHead>
               </TableRow>
             </TableHeader>
 
@@ -211,9 +203,11 @@ export default function PostsManager() {
               {filteredPosts.map((item) => (
                 <TableRow
                   key={item.id}
-                  className="bg-white rounded-lg shadow-sm overflow-hidden hover:bg-gray-50 h-25"
+                  // drop-shadow applies to the whole group of cells as one shape
+                  className="group h-20 xl:h-25 border-none bg-transparent hover:bg-transparent transition-all drop-shadow-[0_1px_2px_rgba(0,0,0,0.1)]"
                 >
-                  <TableCell className="p-3 pl-10 rounded-l-lg">
+                  {/* Left Cell */}
+                  <TableCell className="p-3 pl-6 xl:pl-10 rounded-l-2xl border-none bg-white group-hover:bg-gray-50 transition-colors">
                     <div className="flex gap-5 items-center">
                       <Checkbox
                         isShowIcon={false}
@@ -221,18 +215,23 @@ export default function PostsManager() {
                         onCheckedChange={() => toggleRow(item.id)}
                         className="h-6 w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
                       />
-                      <p className="font-medium">{item.title}</p>
+                      <p className="font-medium truncate max-w-[350px] text-gray-900">
+                        {item.title}
+                      </p>
                     </div>
                   </TableCell>
 
-                  <TableCell className="p-3 hidden md:table-cell text-gray-600">
+                  {/* Middle Cell */}
+                  <TableCell className="p-3 border-none bg-white group-hover:bg-gray-50 transition-colors text-gray-600">
                     {item.category}
                   </TableCell>
 
-                  <TableCell className="p-3 hidden md:table-cell text-gray-500 rounded-r-lg">
-                    <div className="flex gap-5 items-center">
-                      {item.published}
-                      <Ellipsis />
+                  {/* Right Cell */}
+                  <TableCell className="p-3 rounded-r-2xl border-none bg-white group-hover:bg-gray-50 transition-colors">
+                    <div className="flex justify-between items-center pr-4">
+                      <span className="text-gray-500 whitespace-nowrap">{item.published}</span>
+
+                      <Ellipsis className="" />
                     </div>
                   </TableCell>
                 </TableRow>

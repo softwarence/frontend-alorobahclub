@@ -79,11 +79,8 @@ export default function SubscribersManager() {
   const [sort, setSort] = useState("all");
   const [selectedSubscribers, setSelectedSubscribers] = useState<number[]>([]);
 
-  /* ---------------- FILTER + SORT ---------------- */
   const filteredSubscribers = useMemo(() => {
     let result = [...SUBSCRIBERS];
-
-    // Search
     if (search) {
       const q = search.toLowerCase();
       result = result.filter(
@@ -93,19 +90,13 @@ export default function SubscribersManager() {
           s.id.toString().includes(q)
       );
     }
-
-    // Sorting
-    if (sort === "newest") {
+    if (sort === "newest")
       result.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    }
-    if (sort === "oldest") {
+    if (sort === "oldest")
       result.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-    }
-
     return result;
   }, [search, sort]);
 
-  /* ---------------- SELECTION ---------------- */
   const toggleSelectAll = (checked: boolean) => {
     setSelectedSubscribers(checked ? filteredSubscribers.map((s) => s.id) : []);
   };
@@ -121,26 +112,26 @@ export default function SubscribersManager() {
       {/* Filters */}
       <Card className="bg-transparent shadow-none border-0 pb-0">
         <CardContent className="px-0">
-          <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between items-center w-full">
-            <p className="text-gray-800 flex gap-5 text-md">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between w-full">
+            <p className="text-gray-800 flex gap-2 sm:gap-5 text-md flex-wrap">
               <span className="font-semibold">Total ({filteredSubscribers.length})</span>
             </p>
 
-            <div className="flex gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-2 sm:mt-0 items-center w-full sm:w-auto">
               <Input
                 type="text"
                 placeholder="Search subscribers..."
-                className="bg-white min-w-[350px] py-4.5 font-thin placeholder:text-lg text-lg"
+                className="bg-white w-full sm:w-auto min-w-[200px] md:min-w-[350px] py-3 md:py-4.5 text-md md:text-lg font-thin placeholder:text-sm md:placeholder:text-lg"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
 
-              <Button variant="dashboardOutline" className="-ml-2">
+              <Button variant="dashboardOutline" className="w-full sm:w-auto">
                 Search
               </Button>
 
               <Select value={sort} onValueChange={setSort}>
-                <SelectTrigger className="py-4.5 text-md bg-white text-black font-semibold">
+                <SelectTrigger className="w-full md:w-auto py-3 md:py-4.5 text-md bg-white text-black font-semibold">
                   <SelectValue placeholder="Default sorting" />
                 </SelectTrigger>
                 <SelectContent>
@@ -150,34 +141,36 @@ export default function SubscribersManager() {
                 </SelectContent>
               </Select>
 
-              <Button variant="dashboardOutline">Filter</Button>
+              <Button variant="dashboardOutline" className="w-full sm:w-auto">
+                Filter
+              </Button>
             </div>
           </div>
         </CardContent>
       </Card>
 
       {/* Table */}
-      <Card className="overflow-x-auto border-0 shadow-none bg-transparent">
+      <Card className="overflow-x-auto border-0 shadow-none bg-transparent mt-4">
         <CardContent className="p-0">
           <Table className="w-full border-separate border-spacing-y-4">
             <TableHeader>
               <TableRow className="text-lg">
-                <TableHead className="p-3 pl-10 flex gap-5 items-center">
+                <TableHead className="p-3 pl-4 sm:pl-10 flex gap-2 sm:gap-5 items-center">
                   <Checkbox
                     isShowIcon={false}
-                    className="h-6 w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
+                    className="h-5 w-5 sm:h-6 sm:w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
                     checked={
                       selectedSubscribers.length === filteredSubscribers.length &&
                       filteredSubscribers.length > 0
                     }
                     onCheckedChange={(c) => toggleSelectAll(!!c)}
                   />
-                  <p>Name</p>
+                  <p className="text-sm sm:text-base">Name</p>
                 </TableHead>
-                <TableHead className="p-3 hidden md:table-cell">Email</TableHead>
-                <TableHead className="p-3">Status</TableHead>
-                <TableHead className="p-3 hidden lg:table-cell">Date</TableHead>
-                <TableHead className="p-3"></TableHead>
+                <TableHead className="p-3 sm:table-cell text-sm sm:text-base">Email</TableHead>
+                <TableHead className="p-3 sm:table-cell text-sm sm:text-base">Status</TableHead>
+                <TableHead className="p-3 lg:table-cell text-sm lg:text-base">Date</TableHead>
+                <TableHead className="p-3 sm:table-cell"></TableHead>
               </TableRow>
             </TableHeader>
 
@@ -185,28 +178,28 @@ export default function SubscribersManager() {
               {filteredSubscribers.map((subscriber) => (
                 <TableRow
                   key={subscriber.id}
-                  className="bg-white rounded-lg shadow-sm overflow-hidden hover:bg-gray-50 h-25 text-[16px]"
+                  className="bg-white rounded-lg shadow-sm overflow-hidden hover:bg-gray-50 text-sm sm:text-base h-25"
                 >
-                  <TableCell className="p-3 pl-10 rounded-l-lg">
-                    <div className="flex gap-5 items-center">
+                  <TableCell className="p-2 sm:p-3 pl-2 sm:pl-10 rounded-l-lg">
+                    <div className="flex gap-2 sm:gap-5 items-center">
                       <Checkbox
                         isShowIcon={false}
-                        className="h-6 w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
+                        className="h-5 w-5 sm:h-6 sm:w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
                         checked={selectedSubscribers.includes(subscriber.id)}
                         onCheckedChange={() => toggleSelectSubscriber(subscriber.id)}
                       />
-                      <div className="flex items-center gap-2">
-                        <p className="font-medium">{subscriber.id}</p>
+                      <div className="flex flex-row sm:items-center gap-1 sm:gap-2">
+                        <p className="font-medium">#{subscriber.id}</p>
                         <p className="font-medium">{subscriber.name}</p>
                       </div>
                     </div>
                   </TableCell>
 
-                  <TableCell className="p-3 hidden md:table-cell text-gray-500">
+                  <TableCell className="p-2 sm:p-3 sm:table-cell text-gray-500">
                     {subscriber.email}
                   </TableCell>
 
-                  <TableCell className="p-3 hidden md:table-cell text-gray-500">
+                  <TableCell className="p-2 sm:p-3 sm:table-cell text-gray-500">
                     {subscriber.status === "subscribed" ? (
                       <span className="text-green-500">Subscribed</span>
                     ) : (
@@ -214,11 +207,11 @@ export default function SubscribersManager() {
                     )}
                   </TableCell>
 
-                  <TableCell className="p-3 hidden md:table-cell text-gray-500">
+                  <TableCell className="p-2 sm:p-3 lg:table-cell text-gray-500">
                     {subscriber.date}
                   </TableCell>
 
-                  <TableCell className="hidden md:table-cell text-gray-500">
+                  <TableCell className="sm:table-cell text-gray-500 rounded-r-lg">
                     <Ellipsis />
                   </TableCell>
                 </TableRow>

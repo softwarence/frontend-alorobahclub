@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
-
 import { Card, CardContent } from "@/components/ui/card";
-
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
 import { cn } from "@/lib/utils";
@@ -45,22 +43,32 @@ const DATA: Record<FilterKey, { name: string; value: number }[]> = {
 
 export default function ProductSalesChart() {
   const [filter, setFilter] = useState<FilterKey>("7days");
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect screen size to adjust chart props that don't support CSS classes
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   return (
-    <div className="bg-gray-100 pt-20">
-      {/* Header */}
-      <div className="grid grid-cols-3 mb-8">
+    <div className="bg-gray-100 pt-10 md:pt-20 md:px-0">
+      {/* Header - Stack on mobile, Grid on desktop */}
+      <div className="flex flex-col md:grid md:grid-cols-3 gap-6 mb-8">
         <div className="col-span-1">
-          <h2 className="text-3xl text-gray-600">Product Sales</h2>
+          <h2 className="text-2xl md:text-3xl text-gray-600">Product Sales</h2>
         </div>
 
-        <div className="flex items-center col-span-2 gap-8 text-lg font-light">
+        {/* Filters - Wrap on mobile, Gap adjusted */}
+        <div className="flex flex-wrap items-center col-span-2 gap-4 md:gap-8 text-lg font-light">
           {(["7days", "1month", "1year"] as FilterKey[]).map((key) => (
             <Label
               key={key}
               htmlFor={key}
               className={cn(
-                "flex items-center gap-2 rounded-full cursor-pointer hover:bg-gray-100"
+                "flex items-center gap-2 rounded-full cursor-pointer hover:bg-gray-200/50 p-1 transition-colors"
               )}
               onClick={() => setFilter(key)}
             >
@@ -68,9 +76,9 @@ export default function ProductSalesChart() {
                 isShowIcon={false}
                 id={key}
                 checked={filter === key}
-                className="h-6 w-6  data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
+                className="h-5 w-5 md:h-6 md:w-6 data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
               />
-              <span className="text-lg font-light">
+              <span className="text-base md:text-lg font-light whitespace-nowrap">
                 {key === "7days" ? "Last 7 days" : key === "1month" ? "Last month" : "Last year"}
               </span>
             </Label>
@@ -79,16 +87,14 @@ export default function ProductSalesChart() {
       </div>
 
       {/* Card */}
-      <Card className="rounded-3xl shadow-none">
-        <CardContent className="p-6">
-          <div className="h-[320px] w-full">
+      <Card className="rounded-2xl md:rounded-3xl shadow-none overflow-hidden">
+        <CardContent className="p-2 md:p-6">
+          <div className="h-[300px] md:h-[320px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={DATA[filter]}
-                /* barCategoryGap sets the distance between the bar groups */
-                barCategoryGap={10}
-                /* margin provides overall container spacing */
-                margin={{ top: 10, right: 30, left: 20, bottom: 0 }}
+                barCategoryGap={isMobile ? 5 : 10}
+                margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
               >
                 <CartesianGrid
                   horizontal={true}
@@ -101,16 +107,19 @@ export default function ProductSalesChart() {
                   dataKey="name"
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: "#9CA3AF", fontSize: 12 }}
-                  padding={{ left: 100, right: 100 }}
+                  tick={{ fill: "#9CA3AF", fontSize: isMobile ? 10 : 12 }}
+                  // Large padding is removed on mobile to prevent squishing
+                  padding={isMobile ? { left: 10, right: 10 } : { left: 100, right: 100 }}
                 />
 
                 <YAxis
-                  domain={[200, 1000]}
+                  // Domain adjusted to 'auto' to support high values in '1year'
+                  domain={[0, "auto"]}
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: "#9CA3AF", fontSize: 12 }}
+                  tick={{ fill: "#9CA3AF", fontSize: isMobile ? 10 : 12 }}
                   tickFormatter={(value) => `$${value}`}
+                  width={isMobile ? 40 : 60}
                 />
 
                 <Tooltip
@@ -122,7 +131,13 @@ export default function ProductSalesChart() {
                   }}
                 />
 
-                <Bar dataKey="value" fill="#FFE000" radius={[10, 10, 10, 10]} barSize={65} />
+                <Bar
+                  dataKey="value"
+                  fill="#FFE000"
+                  radius={[10, 10, 10, 10]}
+                  // barSize is reduced for mobile to fit more bars (especially for '1year')
+                  barSize={isMobile ? 20 : 65}
+                />
               </BarChart>
             </ResponsiveContainer>
           </div>

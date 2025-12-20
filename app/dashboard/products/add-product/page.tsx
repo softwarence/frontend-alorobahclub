@@ -237,7 +237,7 @@ export default function ProductCreateThreeColumn() {
           </div>
 
           {/* Variants */}
-          <div className="grid grid-cols-2">
+          <div className="grid md:grid-cols-2">
             <div className="mt-3">
               <h3 className="text-3xl">Product variants</h3>
               <div className="space-y-4 pt-3">
@@ -346,7 +346,7 @@ export default function ProductCreateThreeColumn() {
                 <h3 className="">Product gallery (JPG, JPEG or PNG format is recommended)</h3>
                 {/* Grid */}
                 <Card className="mt-2 rounded-md p-5">
-                  <div className="grid grid-cols-4 gap-3">
+                  <div className="grid md:grid-cols-4 grid-cols-2 gap-3">
                     {Array.from({ length: 8 }).map((_, index) => {
                       const img = images[index];
 
