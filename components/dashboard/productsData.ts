@@ -1,4 +1,4 @@
-export const products = [
+export const POSTS = [
   {
     id: 1,
     title: "تيشيرت تصميم عربي",

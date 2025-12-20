@@ -16,7 +16,21 @@
     /* bottom-left */ 0% calc(100% - 18px),
     0% 18px
   );
-} /* Cut corner button */
+}
+.cut-corner-md {
+  clip-path: polygon(
+    11px 0%,
+    /* top-left */ calc(100% - 11px) 0%,
+    /* top-right */ 100% 8px,
+    100% calc(100% - 8px),
+    /* bottom-right */ calc(100% - 11px) 100%,
+    11px 100%,
+    /* bottom-left */ 0% calc(100% - 8px),
+    0% 8px
+  );
+}
+
+/* Cut corner button */
 .cut-corner-btn {
   clip-path: polygon(
     6px 0%,

@@ -136,11 +136,13 @@ export default function StoreHeader() {
             alt=""
             className="cursor-pointer transition-all duration-200 hover:scale-110 hover:opacity-80"
           />
-          <Image
-            src={userIcon}
-            alt=""
-            className="cursor-pointer transition-all duration-200 hover:scale-110 hover:opacity-80"
-          />
+          <Link href={"/dashboard"}>
+            <Image
+              src={userIcon}
+              alt=""
+              className="cursor-pointer transition-all duration-200 hover:scale-110 hover:opacity-80"
+            />
+          </Link>
           <Image
             src={cardIcon}
             alt=""
