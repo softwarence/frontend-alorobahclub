@@ -138,8 +138,7 @@ export default function ProductsManager() {
               <TableRow className="text-lg border-none hover:bg-transparent">
                 <TableHead className="p-3 pl-6 md:pl-10">
                   <Checkbox
-                    isShowIcon={false}
-                    className="h-6 w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
+                    dashboard={true}
                     checked={
                       selectedProducts.length === filteredProducts.length &&
                       filteredProducts.length > 0
@@ -165,8 +164,7 @@ export default function ProductsManager() {
                 >
                   <TableCell className="p-3 pl-6 md:pl-10 rounded-l-lg">
                     <Checkbox
-                      isShowIcon={false}
-                      className="h-6 w-6 data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white border-black"
+                      dashboard={true}
                       checked={selectedProducts.includes(item.id)}
                       onCheckedChange={() => toggleSelectProduct(item.id)}
                     />

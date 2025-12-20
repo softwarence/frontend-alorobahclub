@@ -157,8 +157,7 @@ export default function SubscribersManager() {
               <TableRow className="text-lg">
                 <TableHead className="p-3 pl-4 sm:pl-10 flex gap-2 sm:gap-5 items-center">
                   <Checkbox
-                    isShowIcon={false}
-                    className="h-5 w-5 sm:h-6 sm:w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
+                    dashboard={true}
                     checked={
                       selectedSubscribers.length === filteredSubscribers.length &&
                       filteredSubscribers.length > 0
@@ -183,8 +182,7 @@ export default function SubscribersManager() {
                   <TableCell className="p-2 sm:p-3 pl-2 sm:pl-10 rounded-l-lg">
                     <div className="flex gap-2 sm:gap-5 items-center">
                       <Checkbox
-                        isShowIcon={false}
-                        className="h-5 w-5 sm:h-6 sm:w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
+                        dashboard={true}
                         checked={selectedSubscribers.includes(subscriber.id)}
                         onCheckedChange={() => toggleSelectSubscriber(subscriber.id)}
                       />

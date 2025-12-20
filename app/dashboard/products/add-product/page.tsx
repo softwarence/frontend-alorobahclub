@@ -156,10 +156,10 @@ export default function ProductCreateThreeColumn() {
                     return (
                       <div key={cat} className="flex items-center space-x-2">
                         <Checkbox
+                          dashboard={true}
                           id={id}
                           checked={selectedCategories.includes(cat)}
                           onCheckedChange={() => toggleCategory(cat)}
-                          className="data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600 "
                         />
                         <Label htmlFor={id} className="cursor-pointer">
                           {cat}

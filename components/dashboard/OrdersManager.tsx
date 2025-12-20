@@ -182,8 +182,7 @@ export default function OrdersManager() {
               <TableRow className="text-lg">
                 <TableHead className="p-3 pl-4 flex gap-2 sm:gap-5 items-center">
                   <Checkbox
-                    isShowIcon={false}
-                    className="h-5 w-5 md:h-6 md:w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
+                    dashboard={true}
                     checked={
                       selectedOrders.length === filteredOrders.length && filteredOrders.length > 0
                     }
@@ -207,8 +206,7 @@ export default function OrdersManager() {
                   <TableCell className="p-3 pl-4 md:pl-10 rounded-l-lg">
                     <div className="flex gap-2 sm:gap-5 items-center">
                       <Checkbox
-                        isShowIcon={false}
-                        className="h-5 w-5 md:h-6 md:w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
+                        dashboard={true}
                         checked={selectedOrders.includes(item.id)}
                         onCheckedChange={() => toggleSelectOrder(item.id)}
                       />

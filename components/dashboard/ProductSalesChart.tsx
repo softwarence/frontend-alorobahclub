@@ -72,12 +72,7 @@ export default function ProductSalesChart() {
               )}
               onClick={() => setFilter(key)}
             >
-              <Checkbox
-                isShowIcon={false}
-                id={key}
-                checked={filter === key}
-                className="h-5 w-5 md:h-6 md:w-6 data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
-              />
+              <Checkbox dashboard={true} id={key} checked={filter === key} />
               <span className="text-base md:text-lg font-light whitespace-nowrap">
                 {key === "7days" ? "Last 7 days" : key === "1month" ? "Last month" : "Last year"}
               </span>

@@ -148,8 +148,7 @@ export default function UsersManager() {
               <TableRow className="text-lg">
                 <TableHead className="p-3 pl-4 sm:pl-10 flex gap-2 sm:gap-5 items-center">
                   <Checkbox
-                    isShowIcon={false}
-                    className="h-5 w-5 md:h-6 md:w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
+                    dashboard={true}
                     checked={
                       selectedUsers.length === filteredUsers.length && filteredUsers.length > 0
                     }
@@ -173,8 +172,7 @@ export default function UsersManager() {
                   <TableCell className="p-3 pl-4 sm:pl-10 rounded-l-lg">
                     <div className="flex flex-row gap-2 sm:gap-5 items-start sm:items-center">
                       <Checkbox
-                        isShowIcon={false}
-                        className="h-5 w-5 md:h-6 md:w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
+                        dashboard={true}
                         checked={selectedUsers.includes(item.id)}
                         onCheckedChange={() => toggleSelectUser(item.id)}
                       />
