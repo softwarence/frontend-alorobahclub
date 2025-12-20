@@ -186,10 +186,9 @@ export default function PostsManager() {
                 <TableHead className="p-3 pl-6 xl:pl-10 w-[55%] border-none">
                   <div className="flex items-center gap-5">
                     <Checkbox
-                      isShowIcon={false}
+                      dashboard={true}
                       checked={allSelected}
                       onCheckedChange={(v) => toggleSelectAll(!!v)}
-                      className="h-6 w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
                     />
                     <span>Title</span>
                   </div>
@@ -210,10 +209,9 @@ export default function PostsManager() {
                   <TableCell className="p-3 pl-6 xl:pl-10 rounded-l-2xl border-none bg-white group-hover:bg-gray-50 transition-colors">
                     <div className="flex gap-5 items-center">
                       <Checkbox
-                        isShowIcon={false}
                         checked={selectedIds.includes(item.id)}
                         onCheckedChange={() => toggleRow(item.id)}
-                        className="h-6 w-6 border-black data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 rounded-[7px] bg-white"
+                        dashboard={true}
                       />
                       <p className="font-medium truncate max-w-[350px] text-gray-900">
                         {item.title}

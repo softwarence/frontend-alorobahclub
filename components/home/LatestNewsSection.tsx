@@ -11,6 +11,7 @@ import { Progress } from "@/components/ui/progress";
 import img1 from "@/public/test-image/test1.jpg";
 import img2 from "@/public/test-image/test2.jpg";
 import img3 from "@/public/test-image/test3.jpg";
+import Link from "next/link";
 
 interface Slide {
   img: StaticImageData;
@@ -118,9 +119,11 @@ export default function LatestNewsSection() {
               al-orobah latest
             </h2>
 
-            <Button variant="primary" className="py-5 px-5 mt-4 md:mt-3">
-              VIEW ALL NEWS
-            </Button>
+            <Link href={"/news"}>
+              <Button variant="primary" className="py-5 px-5 mt-4 md:mt-3">
+                VIEW ALL NEWS
+              </Button>
+            </Link>
           </div>
 
           <div className="flex gap-4 mt-10 -mb-3.5">

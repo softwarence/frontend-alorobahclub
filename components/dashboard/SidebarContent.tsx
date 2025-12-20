@@ -53,7 +53,7 @@ export function SidebarContent() {
         <div className="flex justify-between">
           <h1 className="font-semibold">Menu</h1>
           <Checkbox
-            isShowIcon={false}
+            dashboard={true}
             className="h-6 w-6 border-black rounded-[7px] bg-white data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600"
             checked={isAdmin}
             onCheckedChange={toggleSelectAll}
