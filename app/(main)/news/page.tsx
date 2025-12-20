@@ -57,7 +57,7 @@ function News() {
     },
   ];
   return (
-    <div className="pt-40 md:pt-50 bg-[#001317]">
+    <div className="pt-10 md:pt-15 bg-[#001317]">
       <CardGrid items={items}></CardGrid>
       <ImageSection image={Image2}></ImageSection>
       <CardGrid items={items}></CardGrid>
