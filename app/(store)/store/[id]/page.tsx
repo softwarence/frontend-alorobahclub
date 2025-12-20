@@ -1,10 +1,3 @@
-import PaymentCard from "@/components/store/PaymentCard";
-
-import ProductDisplayTitle from "@/components/store/ProductDisplayTitle";
-import ProductShowCase from "@/components/store/ProductShowCase";
-import StoreClubStyleCard from "@/components/store/StoreClubStyleCard";
-import StoreHeroBanner from "@/components/store/StoreHeroBanner";
-
 import StoreProductContainer from "@/components/store/StoreProductContainer";
 export const storeProducts = [
   {
@@ -122,28 +115,20 @@ export const storeProducts = [
   },
 ];
 
-import heroImg2 from "@/public/assets/store/storeBanner2.svg";
-import Image from "next/image";
-import StoreFooter from "./../../../components/store/StoreFooter";
-import StoreOutletSection from "@/components/store/StoreOutletSection";
+import StoreFooter from "@/components/store/StoreFooter";
+import StoreSingleProductContainer from "@/components/store/StoreSingleProductContainer";
 
-import StoreDetailsComponent from "@/components/store/StoreDetailsComponent";
-
-const StorePage = () => {
+const SingleProductPage = () => {
   return (
     <>
-      <StoreHeroBanner></StoreHeroBanner>
       <div className="bg-[#001317] text-white">
-        <div className="max-w-7xl mx-auto px-2 pt-5">
-          <PaymentCard></PaymentCard>
-          <StoreDetailsComponent></StoreDetailsComponent>
-          <ProductDisplayTitle></ProductDisplayTitle>
-
+        <div className="max-w-7xl mx-auto px-2">
+          <StoreSingleProductContainer></StoreSingleProductContainer>
           <h3
             className="
-               text-2xl sm:text-3xl lg:text-4xl font-extrabold text-center uppercase tracking-widest text-white my-10 pt-10"
+               text-2xl sm:text-3xl lg:text-3xl font-extrabold text-center uppercase text-white my-10 pt-10"
           >
-            NEW IN STORE
+            You may also like!
           </h3>
 
           <StoreProductContainer
@@ -151,48 +136,11 @@ const StorePage = () => {
             title="Sustainable Legacy"
             storeProducts={storeProducts.slice(0, 5)}
           ></StoreProductContainer>
-
-          <StoreProductContainer
-            gap="gap-5"
-            title="Graphics Collection"
-            storeProducts={storeProducts.slice(5)}
-          ></StoreProductContainer>
-
-          <div className="pb-15 pt-5">
-            <p className="text-xl md:text-3xl text-center font-extrabold pb-8">
-              YOUR CLUB, YOUR STYLE
-            </p>
-            <StoreClubStyleCard></StoreClubStyleCard>
-          </div>
-
-          <ProductShowCase></ProductShowCase>
+          <StoreFooter></StoreFooter>
         </div>
-
-        <div className="relative w-full h-[300px] md:h-[500px]">
-          <Image src={heroImg2} alt="hero image" fill className="object-cover" />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-2 pt-15">
-          <StoreProductContainer
-            gap="gap-5"
-            title="Graphics Collection"
-            storeProducts={storeProducts.slice(5)}
-          ></StoreProductContainer>
-        </div>
-        <div className="max-w-7xl mx-auto px-2 pt-15">
-          <StoreProductContainer
-            gap="gap-5"
-            title="Graphics Collection"
-            storeProducts={storeProducts.slice(5)}
-          ></StoreProductContainer>
-        </div>
-
-        <StoreOutletSection></StoreOutletSection>
-        <PaymentCard></PaymentCard>
-        <StoreFooter></StoreFooter>
       </div>
     </>
   );
 };
 
-export default StorePage;
+export default SingleProductPage;

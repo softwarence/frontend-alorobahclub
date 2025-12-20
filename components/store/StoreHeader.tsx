@@ -13,8 +13,6 @@ import { Separator } from "@/components/ui/separator";
 import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
 
-import GetRightSideButton from "../shared/getRightSideButton";
-
 import downArrow from "@/public/assets/downArrow_white.svg";
 import GetMiddleNavigationStore from "./GetMiddleNavigationStore";
 
@@ -34,12 +32,16 @@ export default function StoreHeader() {
   ];
 
   const path = usePathname();
-  const matchPage = path.includes("/matches");
+  const segments = path.split("/");
+  const storeId = segments[segments.indexOf("store") + 1];
+  const isStoreNumberPage = storeId && !isNaN(Number(storeId));
+
+  const matchPage = path.includes("/matches") || isStoreNumberPage;
 
   return (
     <header
       className={`
-      ${matchPage ? "bg-[#001317]" : "absolute  bg-gradient-to-b from-black/95 via-black/60 to-transparent"} top-0 left-0 w-full z-50`}
+      ${matchPage ? "bg-[#001317]" : "absolute  bg-gradient-to-b from-black/95 via-black/60 to-transparent"} top-0 left-0 w-full z-50 pb-4`}
     >
       <div className="xl:px-12 px-5 py-2">
         <p className="text-[#FFE000]">Free Shipping within Saudi Arabia</p>
