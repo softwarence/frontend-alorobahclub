@@ -18,6 +18,7 @@ import dolorIcon from "@/public/assets/dollar-icon.svg";
 import headingIcon from "@/public/assets/heading-icon.svg";
 import share from "@/public/assets/share-icon.svg";
 import questionIcon from "@/public/assets/frame-icon.svg";
+import { SubscriptionPopup } from "../shared/SubscribePopup";
 
 // --- INTERFACE DEFINITIONS ---
 interface Color {
@@ -93,12 +94,15 @@ const actionItems = [
   { icon: share, label: "Share item" },
   { icon: questionIcon, label: "Ask a question" },
 ];
+
 // --- MAIN COMPONENT ---
 export default function ProductDetailsContainer() {
   const [mainIndex, setMainIndex] = useState(0);
   const [selectedSize, setSelectedSize] = useState(PRODUCT_DATA.sizes[0]);
   const [selectedColor, setSelectedColor] = useState(PRODUCT_DATA.colors[0].name);
   const [quantity, setQuantity] = useState(1);
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   // Ref for the thumbnail container to allow programmatic scrolling
   const thumbContainerRef = useRef<HTMLDivElement>(null);
@@ -314,6 +318,7 @@ export default function ProductDetailsContainer() {
 
             {/* ADD TO CART */}
             <Button
+              onClick={() => setIsPopupOpen(true)}
               className="rounded flex-1 h-11 bg-[#004351] hover:bg-transparent text-base font-semibold uppercase tracking-wide transition-colors border-[#00B8DF] border"
               disabled={isOutOfStock}
             >
@@ -324,6 +329,7 @@ export default function ProductDetailsContainer() {
 
           {/* BUY NOW */}
           <Button
+            onClick={() => setIsPopupOpen(true)}
             className="w-full h-11 bg-[#FFE000] hover:bg-transparent hover:text-white hover:border border-[#FFE000] text-black  uppercase tracking-wide transition-colors font-bold"
             disabled={isOutOfStock}
           >
@@ -361,6 +367,8 @@ export default function ProductDetailsContainer() {
           </div>
         </div>
       </div>
+      {/* THE MODAL */}
+      <SubscriptionPopup open={isPopupOpen} onOpenChange={setIsPopupOpen} />
     </div>
   );
 }
