@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React from "react";
 
 import AlRiyadh from "@/public/assets/match/Al-Riyadh Logo.svg";
 
