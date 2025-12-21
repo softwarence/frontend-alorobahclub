@@ -11,58 +11,83 @@ import { Progress } from "@/components/ui/progress";
 import img1 from "@/public/test-image/test1.jpg";
 import img2 from "@/public/test-image/test2.jpg";
 import img3 from "@/public/test-image/test3.jpg";
+import Link from "next/link";
 
 interface Slide {
+  id: number;
   img: StaticImageData;
   title: string;
   desc: string;
 }
 
-const ChamferCard = ({ img, title }: Slide) => (
-  <div className="cut-corner relative w-full max-w-[385px] rounded-xl overflow-hidden shadow-xl group">
+const ChamferCard = ({ id, img, title }: Slide) => (
+  <div className="cut-corner relative w-full max-w-full md:max-w-[385px] rounded-xl overflow-hidden shadow-xl group">
     <div className="overflow-hidden">
-      <Image
-        src={img}
-        alt={title}
-        className="w-full h-[420px] md:h-[500px] lg:h-[600px] object-cover transform transition-transform duration-500 group-hover:scale-105"
-        draggable={false}
-      />
+      <Link href={`/news/${id}`}>
+        <Image
+          src={img}
+          alt={title}
+          className="w-full h-[420px] md:h-[500px] lg:h-[600px] object-cover transition-transform duration-500 group-hover:scale-105"
+          draggable={false}
+        />
+      </Link>
     </div>
 
     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
 
     <div className="absolute bottom-8 left-8 right-8 text-white z-10">
-      <h3 className="text-lg md:text-xl font-bold line-clamp-2">{title}</h3>
-
-      <Button
-        variant="link"
-        className="mt-4 border-b-2 border-[#FFE000] p-0 text-sm font-medium text-[#FFE000] hover:bg-transparent rounded-none hover:no-underline hover:cursor-pointer"
-      >
-        READ MORE
-      </Button>
+      <h3 className="text-lg md:text-xl font-bold line-clamp-2">{title}</h3>{" "}
+      <Link href={`/news/${id}`}>
+        <Button
+          variant="link"
+          className="mt-4 border-b-2 border-[#FFE000] p-0 text-sm font-medium text-[#FFE000] hover:bg-transparent rounded-none hover:no-underline hover:cursor-pointer"
+        >
+          READ MORE
+        </Button>
+      </Link>
     </div>
   </div>
 );
 
 export default function LatestNewsSection() {
   const slides: Slide[] = [
-    { img: img1, title: "AL-ITTIHAD ANNOUNCES SPONSORSHIP DEAL WITH TCL", desc: "Lorem ipsum" },
-    { img: img2, title: "ORAL HEALTH PROGRAM LAUNCHED FOR YOUTH PLAYERS", desc: "Lorem ipsum" },
-    { img: img3, title: "TIGER MEMBERS ATTEND FIRST-TEAM OPEN TRAINING", desc: "Lorem ipsum" },
-    { img: img1, title: "AL-ITTIHAD LAUNCHES FOOTBALL SCHOOL AT AGS JEDDAH", desc: "Lorem ipsum" },
-    { img: img2, title: "Upcoming Friendly Match Announcement", desc: "Lorem ipsum" },
-    { img: img3, title: "Friendly Match Details Released", desc: "Lorem ipsum" },
+    {
+      id: 9,
+      img: img1,
+      title: "AL-ITTIHAD ANNOUNCES SPONSORSHIP DEAL WITH TCL",
+      desc: "Lorem ipsum",
+    },
+    {
+      id: 10,
+      img: img2,
+      title: "ORAL HEALTH PROGRAM LAUNCHED FOR YOUTH PLAYERS",
+      desc: "Lorem ipsum",
+    },
+    {
+      id: 11,
+      img: img3,
+      title: "TIGER MEMBERS ATTEND FIRST-TEAM OPEN TRAINING",
+      desc: "Lorem ipsum",
+    },
+    {
+      id: 12,
+      img: img1,
+      title: "AL-ITTIHAD LAUNCHES FOOTBALL SCHOOL AT AGS JEDDAH",
+      desc: "Lorem ipsum",
+    },
+    { id: 13, img: img2, title: "Upcoming Friendly Match Announcement", desc: "Lorem ipsum" },
+    { id: 14, img: img3, title: "Friendly Match Details Released", desc: "Lorem ipsum" },
   ];
 
   const totalSlides = slides.length;
-
   const flickingRef = useRef<Flicking>(null);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(3);
   const [isReady, setIsReady] = useState(false);
 
-  // --- Responsive items per view ---
+  // Calculate slides per view responsive
   const calculateItemsPerView = () => {
     if (window.innerWidth < 640) return 1; // mobile
     if (window.innerWidth < 1024) return 2; // tablet
@@ -114,13 +139,15 @@ export default function LatestNewsSection() {
           <div />
 
           <div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
-              AL-ITTIHAD LATEST
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight uppercase">
+              al-orobah latest
             </h2>
 
-            <Button variant="primary" className="py-5 px-5 mt-4 md:mt-3">
-              VIEW ALL NEWS
-            </Button>
+            <Link href={"/news"}>
+              <Button variant="primary" className="py-5 px-5 mt-4 md:mt-3">
+                VIEW ALL NEWS
+              </Button>
+            </Link>
           </div>
 
           <div className="flex gap-4 mt-10 -mb-3.5">
@@ -154,7 +181,6 @@ export default function LatestNewsSection() {
             circular={false}
             bound={true}
             moveType="snap"
-            panelsPerView={itemsPerView}
             className="w-full flex"
             preventClickOnDrag
             onReady={handleReady}
@@ -164,11 +190,12 @@ export default function LatestNewsSection() {
               <div
                 key={i}
                 className="
-                flex-shrink-0
-                basis-[85vw]
-                sm:basis-[calc(50%-12px)]
-                lg:basis-[calc(33.33%-16px)]
-                mr-3"
+                  flex-shrink-0
+                  basis-[90vw]
+                  md:basis-[85vw]
+                  lg:basis-[calc(33.33%-16px)]
+                  mr-3
+                "
               >
                 <ChamferCard {...slide} />
               </div>

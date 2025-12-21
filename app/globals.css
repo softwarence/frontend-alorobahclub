@@ -1,11 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+.bg {
+  background-color: #001317;
 }
 
 .cut-corner {
@@ -19,7 +16,21 @@ body {
     /* bottom-left */ 0% calc(100% - 18px),
     0% 18px
   );
-} /* Cut corner button */
+}
+.cut-corner-md {
+  clip-path: polygon(
+    11px 0%,
+    /* top-left */ calc(100% - 11px) 0%,
+    /* top-right */ 100% 8px,
+    100% calc(100% - 8px),
+    /* bottom-right */ calc(100% - 11px) 100%,
+    11px 100%,
+    /* bottom-left */ 0% calc(100% - 8px),
+    0% 8px
+  );
+}
+
+/* Cut corner button */
 .cut-corner-btn {
   clip-path: polygon(
     6px 0%,
@@ -45,6 +56,21 @@ body {
     0% calc(100% - 5px),
     0% 5px
   );
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+/* Hide scrollbar for all browsers */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 @custom-variant dark (&:is(.dark *));

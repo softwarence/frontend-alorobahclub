@@ -17,7 +17,7 @@ const GetRightSideButton = () => {
 
       {/* TICKETS */}
       <Link
-        href="/tickets"
+        href="#"
         className="flex items-center gap-2 text-white font-semibold hover:text-[#FFE000]"
       >
         TICKETS

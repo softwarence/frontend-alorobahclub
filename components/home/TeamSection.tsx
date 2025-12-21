@@ -2,7 +2,6 @@
 
 import React from "react";
 import Image, { StaticImageData } from "next/image";
-import { ArrowRight } from "lucide-react";
 
 // Import SVGs as images
 import StevenBergwijn from "@/public/assets/team/Steven_Bergwijn.svg";
@@ -10,6 +9,7 @@ import DaniloPereira from "@/public/assets/team/Danilo_Pereira.svg";
 import HoussemAouar from "@/public/assets/team/Houssem_Aouar.svg";
 import KarimBenzema from "@/public/assets/team/Karim_Benzema.svg";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 // --- Team Data ---
 interface Player {
@@ -51,9 +51,11 @@ const TeamSection = () => {
         {/* Header */}
         <div className="flex items-center justify-between pb-6">
           <h2 className="text-4xl font-extrabold uppercase text-white">TEAM</h2>
-          <Button variant={"primary"} className="">
-            VIEW FULL TEAM
-          </Button>
+          <Link href={"/team"}>
+            <Button variant={"primary"} className="">
+              VIEW FULL TEAM
+            </Button>
+          </Link>
         </div>
 
         {/* Player Grid */}
