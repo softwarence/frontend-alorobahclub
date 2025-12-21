@@ -4,7 +4,6 @@ import MatchHeroComponent from "../../../components/matches/MatchHeroComponent";
 
 import MatchScheduleCardContainer from "@/components/matches/MatchScheduleCardContainer";
 import { matches } from "@/components/home/data";
-import SponsorsCarousel from "@/components/home/SponsorsCarousel";
 
 const MatchPage = () => {
   const all = [

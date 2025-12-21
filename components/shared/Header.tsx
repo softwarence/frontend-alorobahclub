@@ -29,7 +29,7 @@ export default function Header() {
   ];
 
   const path = usePathname();
-  const matchPage = path.includes("/matches") || path.includes("/team");
+  const matchPage = path.includes("/matches") || path.includes("/team") || path.includes("/news");
 
   return (
     <header
