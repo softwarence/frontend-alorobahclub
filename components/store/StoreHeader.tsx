@@ -36,12 +36,12 @@ export default function StoreHeader() {
   const storeId = segments[segments.indexOf("store") + 1];
   const isStoreNumberPage = storeId && !isNaN(Number(storeId));
 
-  const matchPage = path.includes("/matches") || isStoreNumberPage;
+  const widthInclude = path.includes("/matches") || isStoreNumberPage || path.includes("/checkout");
 
   return (
     <header
       className={`
-      ${matchPage ? "bg-[#001317]" : "absolute  bg-gradient-to-b from-black/95 via-black/60 to-transparent"} top-0 left-0 w-full z-50 pb-4`}
+      ${widthInclude ? "bg-[#001317]" : "absolute  bg-gradient-to-b from-black/95 via-black/60 to-transparent"} top-0 left-0 w-full z-50 pb-4`}
     >
       <div className="xl:px-12 px-5 py-2">
         <p className="text-[#FFE000]">Free Shipping within Saudi Arabia</p>
