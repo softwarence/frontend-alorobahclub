@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import jersey from "@/public/assets/store/Jersey.svg";
+import jersey from "@/public/assets/store/l1.svg";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 export default function ProductShowcase() {
   return (
@@ -40,9 +41,11 @@ export default function ProductShowcase() {
           </p>
 
           {/* CTA BUTTON */}
-          <Button className="mt-10 h-11 bg-[#FFE000] hover:bg-transparent hover:text-white hover:border border-[#FFE000] text-black  uppercase tracking-wide transition-colors font-bold">
-            Buy It Now
-          </Button>
+          <Link href={"/checkout"}>
+            <Button className="mt-10 h-11 bg-[#FFE000] hover:bg-transparent hover:text-white hover:border border-[#FFE000] text-black  uppercase tracking-wide transition-colors font-bold">
+              Buy It Now
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

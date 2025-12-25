@@ -255,13 +255,15 @@ export default function StoreDetailsComponent() {
           </div>
 
           {/* BUY NOW */}
-          <Button
-            onClick={() => setIsPopupOpen(true)}
-            className="w-full h-11 bg-[#FFE000] hover:bg-transparent hover:text-white hover:border border-[#FFE000] text-black  uppercase tracking-wide transition-colors font-bold"
-            disabled={isOutOfStock}
-          >
-            Buy It Now
-          </Button>
+          <Link href={"/checkout"}>
+            <Button
+              // onClick={() => setIsPopupOpen(true)}
+              className="w-full h-11 bg-[#FFE000] hover:bg-transparent hover:text-white hover:border border-[#FFE000] text-black  uppercase tracking-wide transition-colors font-bold"
+              disabled={isOutOfStock}
+            >
+              Buy It Now
+            </Button>
+          </Link>
           <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-white text-xs sm:text-sm pt-4 border-b border-white pb-10">
             {trustItems.map((item, idx) => (
               <div key={idx} className="flex items-center gap-2">
@@ -285,7 +287,7 @@ export default function StoreDetailsComponent() {
           {/* VIEW FULL DETAILS LINK */}
           <div>
             <Link
-              href="#details"
+              href="/store/1"
               className="text-white hover:cursor-pointer text-sm sm:text-base flex items-center justify-between pt-2  transition-colors font-medium"
             >
               VIEW FULL DETAILS

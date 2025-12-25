@@ -81,9 +81,10 @@ export default function MatchSchedule() {
             modules={[Navigation]}
             navigation={false}
             loop={false}
+            className="w-full"
           >
             {matches.map((match, idx) => (
-              <SwiperSlide key={idx} className="h-auto">
+              <SwiperSlide key={idx} className="h-auto md:min-w-[320px]">
                 <MatchCard bgColor="bg-[#001317]" isYellow={idx === 0} match={match} />
               </SwiperSlide>
             ))}

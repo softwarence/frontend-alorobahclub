@@ -18,12 +18,12 @@ const DifferentSportsSection = () => {
       </div>
 
       {/* Text Content */}
-      <div className="relative z-10 text-center text-white px-4 md:px-8">
-        <h2 className="text-2xl md:text-center text-left md:text-6xl font-extrabold uppercase md:mb-8 mb-3 tracking-[4px]">
+      <div className="relative z-10 text-center text-white px-4 md:px-6">
+        <h2 className="text-2xl md:text-center text-left md:text-5xl font-extrabold uppercase md:mb-8 mb-3 tracking-[4px]">
           DIFFERENT SPORTS
         </h2>
 
-        <p className="md:leading-relaxed text-gray-100 tracking-[2px]  md:tracking-[3px] md:font-thin md:text-center text-justify text-md  md:text-3xl">
+        <p className="md:leading-relaxed text-gray-100 tracking-[2px]  xl:tracking-[2.5px] md:font-thin md:text-center text-justify text-md  md:text-3xl">
           Al-Orobah is more than a football club — it’s a multi-sport institution built on
           resilience, ambition, <br className="hidden sm:block" /> and a proud legacy. From the
           training halls to competitive arenas, we strive for excellence across every discipline,
