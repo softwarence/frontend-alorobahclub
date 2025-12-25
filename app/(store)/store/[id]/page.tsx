@@ -136,8 +136,8 @@ const SingleProductPage = () => {
             title="Sustainable Legacy"
             storeProducts={storeProducts.slice(0, 5)}
           ></StoreProductContainer>
-          <StoreFooter></StoreFooter>
         </div>
+        <StoreFooter></StoreFooter>
       </div>
     </>
   );

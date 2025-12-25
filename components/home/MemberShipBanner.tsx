@@ -25,11 +25,12 @@ const MemberShipBanner = () => {
             {/* LEFT TEXT (touches left edge) */}
             <div className="flex flex-col justify-center h-full pl-4 md:pl-12">
               <h2 className="text-3xl md:text-6xl font-extrabold uppercase text-black leading-tight">
-                TIGER <br /> MEMBERSHIPS
+                <br /> MEMBERSHIPS
               </h2>
 
               <p className="mt-3 text-base text-black">
-                Learn more about our exclusive Tiger Membership program{" "}
+                {/* Learn more about our exclusive Tiger Membership program{" "} */}
+                Learn more about our exclusive Membership program{" "}
               </p>
 
               <Button

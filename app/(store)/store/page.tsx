@@ -122,7 +122,9 @@ export const storeProducts = [
   },
 ];
 
-import heroImg2 from "@/public/assets/store/storeBanner2.svg";
+// import heroImg2 from "@/public/assets/store/storeBanner2.svg";
+import heroImg2 from "@/public/assets/store/storeBanner2.jpg";
+
 import Image from "next/image";
 import StoreFooter from "./../../../components/store/StoreFooter";
 import StoreOutletSection from "@/components/store/StoreOutletSection";
@@ -169,6 +171,7 @@ const StorePage = () => {
         </div>
 
         <div className="relative w-full h-[300px] md:h-[500px]">
+          {/* <Image src={heroImg2} alt="hero image" fill className="object-cover" /> */}
           <Image src={heroImg2} alt="hero image" fill className="object-cover" />
         </div>
 
