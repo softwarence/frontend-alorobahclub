@@ -1,11 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import s1 from "@/public/assets/store/s1.svg";
-import s2 from "@/public/assets/store/s2.svg";
-import s3 from "@/public/assets/store/s3.svg";
-import s4 from "@/public/assets/store/s4.svg";
-import s5 from "@/public/assets/store/s5.svg";
+// import s1 from "@/public/assets/store/s1.svg";
+// import s2 from "@/public/assets/store/s2.svg";
+// import s3 from "@/public/assets/store/s3.svg";
+// import s4 from "@/public/assets/store/s4.svg";
+// import s5 from "@/public/assets/store/s5.svg";
+import s1 from "@/public/assets/store/a1.svg";
+import s2 from "@/public/assets/store/a2.svg";
+import s3 from "@/public/assets/store/a3.svg";
+import s4 from "@/public/assets/store/a2.svg";
+import s5 from "@/public/assets/store/a1.svg";
 
 export const fakeData = [
   { img: s1, name: "Men", title: "23 items" },

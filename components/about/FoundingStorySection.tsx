@@ -11,7 +11,7 @@ const EstablishmentHistorySection = () => {
         <Image src={club_establishment} alt="Decorative Top Border" className="w-full h-auto" />
       </div>
       {/* Content */}
-      <div className="mx-auto px-4 md:px-16 relative pt-40 flex flex-col lg:flex-row items-center lg:items-center gap-10 -top-25">
+      <div className="mx-auto px-4 md:px-10 relative pt-40 flex flex-col lg:flex-row items-center lg:items-center gap-10 -top-25">
         <div className="lg:w-3/5 text-black flex flex-col justify-center h-full">
           <h2 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6 uppercase tracking-wide">
             AL-OROBAH CLUB

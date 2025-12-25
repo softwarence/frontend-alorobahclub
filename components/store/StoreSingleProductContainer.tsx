@@ -91,12 +91,14 @@ export default function StoreSingleProductContainer() {
               ADD TO CART
             </Button>
 
-            <Button
-              onClick={() => setIsPopupOpen(true)}
-              className="w-full h-14 bg-[#FFE000] text-black hover:bg-[#F0D000] font-black uppercase tracking-widest text-sm rounded-sm"
-            >
-              BUY IT NOW
-            </Button>
+            <Link href={"/checkout"}>
+              <Button
+                // onClick={() => setIsPopupOpen(true)}
+                className="w-full h-14 bg-[#FFE000] text-black hover:bg-[#F0D000] font-black uppercase tracking-widest text-sm rounded-sm"
+              >
+                BUY IT NOW
+              </Button>
+            </Link>
           </div>
 
           {/* PAYMENT SPLITS */}
